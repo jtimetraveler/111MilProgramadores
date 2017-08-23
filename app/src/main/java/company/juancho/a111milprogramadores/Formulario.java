@@ -56,7 +56,7 @@ public class Formulario extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                guardarDatos(view);
+
                 validarDatos();
             }
         });
@@ -207,7 +207,8 @@ public class Formulario extends AppCompatActivity {
             if (a &&b && d && c) {
                 // OK, se pasa a la siguiente acción
                 guardarDatos();
-                Toast.makeText(this, "Se guarda el registro", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Se ha realizado el registro", Toast.LENGTH_LONG).show();
+                lanzarActivity();
             }
 
         }
@@ -250,5 +251,10 @@ public class Formulario extends AppCompatActivity {
         usuario.setNombre(campoNombre.getText().toString());
         usuario.setContrasenia(campoPassord.getText().toString());
         usuario.setMail(campoMail.getText().toString());
+    }
+
+    private void lanzarActivity(){
+        Intent i = new Intent(this, Main.class);
+        startActivity(i);
     }
 }

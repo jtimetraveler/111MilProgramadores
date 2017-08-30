@@ -2,6 +2,7 @@ package company.juancho.a111milprogramadores;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.regex.Pattern;
+
+import company.juancho.a111milprogramadores.tools.MailJob;
 
 public class Formulario extends AppCompatActivity {
 
@@ -207,6 +210,7 @@ public class Formulario extends AppCompatActivity {
             if (a &&b && d && c) {
                 // OK, se pasa a la siguiente acción
                 guardarDatos();
+                sendEmail(campoMail.getText().toString());
                 Toast.makeText(this, "Se ha realizado el registro", Toast.LENGTH_LONG).show();
                 lanzarActivity();
             }
@@ -256,5 +260,17 @@ public class Formulario extends AppCompatActivity {
     private void lanzarActivity(){
         Intent i = new Intent(this, Main.class);
         startActivity(i);
+    }
+
+
+
+
+
+
+
+    protected void sendEmail(String mail) {
+        new MailJob("prog111mil@hotmail.com", "curso111mil").execute(
+                new MailJob.Mail("prog111mil@hotmail.com", mail, "Inscripción ", "La Inscripción se ha realizado exitosamente. Gracias, vuelva pronto.")
+        );
     }
 }

@@ -257,7 +257,7 @@ public class Formulario extends AppCompatActivity {
         usuario.setMail(campoMail.getText().toString());
     }
 
-    private void lanzarActivity(){
+    public void lanzarActivity(){
         Intent i = new Intent(this, Main.class);
         startActivity(i);
     }

@@ -31,59 +31,73 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_passord"
+            android:id="@+id/til_DNI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/campo_password"
+                android:id="@+id/campo_DNI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
+                android:hint="DNI"
+                android:inputType="text"
                 android:textColorLink="@android:color/holo_blue_dark" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_repPassword"
+            android:id="@+id/til_Institucion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/campo_repPassword"
+                android:id="@+id/campo_Institucion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Repetir Contraseña"
-                android:inputType="textPassword"
+                android:hint="Institución a la que representa"
+                android:inputType="text"
                 android:textColorLink="@android:color/holo_blue_dark" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="hint" />
-            </android.support.design.widget.TextInputLayout>
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_mail"
+            android:id="@+id/til_localidad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
+
+
             <EditText
-                android:id="@+id/campo_mail"
+                android:id="@+id/campo_localidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="E-Mail"
-                android:inputType="textEmailAddress"
+                android:hint="Localidad"
+                android:inputType="text"
                 android:textColorLink="@android:color/holo_blue_dark" />
 
+        </android.support.design.widget.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/check_licencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Licencia" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_dias"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/campo_dias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dias "
+                android:inputType="date" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>

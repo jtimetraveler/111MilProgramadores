@@ -1,8 +1,6 @@
 package company.juancho.a111milprogramadores;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,25 +11,29 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
+import company.juancho.a111milprogramadores.tools.Insertar;
 import company.juancho.a111milprogramadores.tools.MailJob;
 
 public class Formulario extends AppCompatActivity {
 
     private EditText campoNombre ;
-    private EditText campoPassord;
-    private EditText campoRepPassword;
-    private EditText campoMail ;
+    private EditText campoDNI;
+    private EditText campoInstitucion;
+    private EditText campoLocalidad;
     private Usuario usuario;
 
     private TextInputLayout tilNombre;
-    private TextInputLayout tilPassword;
-    private TextInputLayout tilRepPassword;
-    private TextInputLayout tilMail;
+    private TextInputLayout tilDNI;
+    private TextInputLayout tilIntitucion;
+    private TextInputLayout tilLocalidad;
+
+    private CheckBox checkLicencia;
 
 
 
@@ -45,28 +47,29 @@ public class Formulario extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         campoNombre = (EditText) findViewById(R.id.campo_nombre);
-        campoPassord = (EditText) findViewById(R.id.campo_password);
-        campoRepPassword = (EditText) findViewById(R.id.campo_repPassword);
-        campoMail = (EditText) findViewById(R.id.campo_mail);
+        campoDNI = (EditText) findViewById(R.id.campo_DNI);
+        campoInstitucion = (EditText) findViewById(R.id.campo_Institucion);
+        campoLocalidad = (EditText) findViewById(R.id.campo_localidad);
 
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
-        tilPassword = (TextInputLayout) findViewById(R.id.til_passord);
-        tilRepPassword = (TextInputLayout) findViewById(R.id.til_repPassword);
-        tilMail = (TextInputLayout) findViewById(R.id.til_mail);
+        tilDNI = (TextInputLayout) findViewById(R.id.til_DNI);
+        tilIntitucion = (TextInputLayout) findViewById(R.id.til_Institucion);
+        tilLocalidad = (TextInputLayout) findViewById(R.id.til_localidad);
 
+        checkLicencia = (CheckBox) findViewById(R.id.check_licencia);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                validarDatos();
+                pressBoton();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        campoMail.addTextChangedListener(new TextWatcher() {
+        campoLocalidad.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -103,12 +106,31 @@ public class Formulario extends AppCompatActivity {
 
     }
 
+
+    private void pressBoton(){
+        if(validarDatos()){
+            // OK, se pasa a la siguiente acción
+            guardarDatos();
+            new Insertar(this, usuario).execute();
+            //sendEmail(campoLocalidad.getText().toString());
+            //Toast.makeText(this, "Se ha realizado el registro", Toast.LENGTH_LONG).show();
+            lanzarActivity();
+        }
+
+    }
+
+    protected void sendEmail(String mail) {
+        new MailJob("prog111mil@hotmail.com", "curso111mil").execute(
+                new MailJob.Mail("prog111mil@hotmail.com", mail, "Inscripción ", "La Inscripción se ha realizado exitosamente. Gracias, vuelva pronto.")
+        );
+    }
+
     public void guardarDatos(View v){
 
-        if(campoPassord.getText().toString().equals(campoRepPassword.getText().toString()) & !(campoPassord.getText().toString().equals("")) ){
+        if(campoDNI.getText().toString().equals(campoInstitucion.getText().toString()) & !(campoDNI.getText().toString().equals("")) ){
             validarDatos();
             /*
-            esCorreoValido(campoMail.getText().toString());
+            esCorreoValido(campoLocalidad.getText().toString());
 
 
             if(usuario.getNombre().equals("")){
@@ -120,7 +142,7 @@ public class Formulario extends AppCompatActivity {
                 mensaje.setText("Falta completar: E-mail");
                 mensaje.setTextColor(Color.RED);
                 mensaje.setVisibility(View.VISIBLE);
-                campoMail.requestFocus();
+                campoLocalidad.requestFocus();
             } else  {
                 mensaje.setTextColor(Color.GRAY);
                 mensaje.setText("Está todo OK, "+usuario.getNombre());
@@ -159,10 +181,10 @@ public class Formulario extends AppCompatActivity {
         return true;
     }
 
-    private boolean esPasswordValida(String password){
+    private boolean esDNIValido(String password){
 
-        if (password.length() < 6){
-            tilPassword.setError("La contraseña debe tener al menos 6 dígitos");
+        if (!(password.length() == 6)){
+            tilDNI.setError("Número de DNI inválido");
             return false;
         } else {
             return true;
@@ -175,49 +197,47 @@ public class Formulario extends AppCompatActivity {
         if(password.equals(repPassword)){
             return true;
         } else{
-            tilRepPassword.setError("Las contraseñas no coinciden");
+            tilIntitucion.setError("Las contraseñas no coinciden");
             return false;
         }
     }
+
 
 
 
     private boolean esCorreoValido(String correo) {
         if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            tilMail.setError("Correo electrónico inválido");
+            tilLocalidad.setError("Correo electrónico inválido");
             return false;
         } else {
-            tilMail.setError(null);
+            tilLocalidad.setError(null);
         }
 
         return true;
     }
 
-    private void validarDatos() {
+    private boolean validarDatos() {
         String nombre = tilNombre.getEditText().getText().toString();
-        String password = tilPassword.getEditText().getText().toString();
-        String repPass = tilRepPassword.getEditText().getText().toString();
-        String correo = tilMail.getEditText().getText().toString();
-
+        String DNI = tilDNI.getEditText().getText().toString();
+        String Institucion = tilIntitucion.getEditText().getText().toString();
+        String localidad = tilLocalidad.getEditText().getText().toString();
+        boolean aux =false;
 
 
         if(esFull()){
 
             boolean a = esNombreValido(nombre);
-            boolean b = esPasswordValida(password);
-            boolean c = esCorreoValido(correo);
-            boolean d = esEqualPass(password, repPass);
-            if (a &&b && d && c) {
-                // OK, se pasa a la siguiente acción
-                guardarDatos();
-                sendEmail(campoMail.getText().toString());
-                Toast.makeText(this, "Se ha realizado el registro", Toast.LENGTH_LONG).show();
-                lanzarActivity();
+            boolean b = esDNIValido(DNI);
+
+
+            if (a &&b ) {
+                aux = true;
             }
 
         }
 
 
+        return aux;
     }
 
     private boolean estaCompleto(TextInputLayout til){
@@ -234,11 +254,11 @@ public class Formulario extends AppCompatActivity {
 
 
     private boolean esFull(){
-        /*boolean aux [] = {estaCompleto(tilNombre),estaCompleto(tilPassword),estaCompleto(tilRepPassword),estaCompleto(tilMail)};
-        boolean b = estaCompleto(tilPassword;
-        boolean c = estaCompleto(tilRepPassword);
-        boolean d = estaCompleto(tilMail);*/
-        if(estaCompleto(tilNombre) && estaCompleto(tilPassword) && estaCompleto(tilRepPassword) && estaCompleto(tilMail)){
+        /*boolean aux [] = {estaCompleto(tilNombre),estaCompleto(tilDNI),estaCompleto(tilIntitucion),estaCompleto(tilLocalidad)};
+        boolean b = estaCompleto(tilDNI;
+        boolean c = estaCompleto(tilIntitucion);
+        boolean d = estaCompleto(tilLocalidad);*/
+        if(estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion) && estaCompleto(tilLocalidad)){
             return true;
         } else {
             return false;
@@ -253,8 +273,8 @@ public class Formulario extends AppCompatActivity {
     private void guardarDatos(){
         usuario = new Usuario();
         usuario.setNombre(campoNombre.getText().toString());
-        usuario.setContrasenia(campoPassord.getText().toString());
-        usuario.setMail(campoMail.getText().toString());
+        usuario.setContrasenia(campoDNI.getText().toString());
+        usuario.setMail(campoLocalidad.getText().toString());
     }
 
     public void lanzarActivity(){
@@ -268,9 +288,5 @@ public class Formulario extends AppCompatActivity {
 
 
 
-    protected void sendEmail(String mail) {
-        new MailJob("prog111mil@hotmail.com", "curso111mil").execute(
-                new MailJob.Mail("prog111mil@hotmail.com", mail, "Inscripción ", "La Inscripción se ha realizado exitosamente. Gracias, vuelva pronto.")
-        );
-    }
+
 }

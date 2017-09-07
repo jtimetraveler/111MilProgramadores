@@ -8,97 +8,211 @@
     tools:context="company.juancho.a111milprogramadores.Formulario"
     tools:showIn="@layout/activity_formulario">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_nombre"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
 
-            <EditText
-                android:id="@+id/campo_nombre"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"
-                android:inputType="textPersonName"
-                android:textColorLink="@android:color/holo_blue_dark" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_weight="1">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_DNI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                <EditText
+                    android:id="@+id/campo_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombre"
+                    android:inputType="textPersonName"
+                    android:textColorLink="@android:color/holo_blue_dark" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/campo_DNI"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_DNI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="DNI"
-                android:inputType="text"
-                android:textColorLink="@android:color/holo_blue_dark" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_weight="1">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_Institucion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                <EditText
+                    android:id="@+id/campo_DNI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="DNI"
+                    android:inputType="number"
+                    android:textColorLink="@android:color/holo_blue_dark" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/campo_Institucion"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_Institucion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Institución a la que representa"
-                android:inputType="text"
-                android:textColorLink="@android:color/holo_blue_dark" />
+                android:layout_weight="1">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/campo_Institucion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Institución a la que representa"
+                    android:inputType="text"
+                    android:textColorLink="@android:color/holo_blue_dark" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_localidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            </android.support.design.widget.TextInputLayout>
 
-
-
-            <EditText
-                android:id="@+id/campo_localidad"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_localidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Localidad"
-                android:inputType="text"
-                android:textColorLink="@android:color/holo_blue_dark" />
+                android:layout_weight="1">
 
-        </android.support.design.widget.TextInputLayout>
 
-        <CheckBox
-            android:id="@+id/check_licencia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Licencia" />
+                <EditText
+                    android:id="@+id/campo_localidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Localidad"
+                    android:inputType="text"
+                    android:textColorLink="@android:color/holo_blue_dark" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_dias"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_weight="1" />
 
-            <EditText
-                android:id="@+id/campo_dias"
+            </android.support.design.widget.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/opciones_licencia"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Dias "
-                android:inputType="date" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/text_licencia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Licencia"
+                    android:layout_marginRight="30dp"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_si"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:checked="true"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:id="@+id/radio_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="No" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:text="Días:"
+                    android:textSize="18sp" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_diasDesde"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/campoDiasDesde"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Desde" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_diasHasta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/campoDiasHasta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Hasta" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_ID"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/campoID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="ID" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/opciones_institucion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_inst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Institución: "
+                    android:layout_marginRight="30dp"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_publica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:checked="true"
+                    android:text="Pública" />
+
+                <RadioButton
+                    android:id="@+id/radio_privada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="Privada" />
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 </android.support.constraint.ConstraintLayout>

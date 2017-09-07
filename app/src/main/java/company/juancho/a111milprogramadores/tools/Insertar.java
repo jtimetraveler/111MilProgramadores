@@ -45,9 +45,9 @@ public class Insertar extends AsyncTask<String,String,String> {
         this.usuario = usuario;
         this.context = context;
         this.nombre = usuario.getNombre();
-        this.dni = usuario.getContrasenia();
-        this.email = usuario.getMail();
-        this.telefono = usuario.getContrasenia();
+        this.dni = usuario.getInstitucion();
+        this.email = usuario.getLocalidad();
+        this.telefono = usuario.getInstitucion();
     }
     @Override
     protected String doInBackground(String... params) {

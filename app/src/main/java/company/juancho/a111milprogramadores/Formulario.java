@@ -3,17 +3,15 @@ package company.juancho.a111milprogramadores;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.regex.Pattern;
 
@@ -26,6 +24,7 @@ public class Formulario extends AppCompatActivity {
     private EditText campoDNI;
     private EditText campoInstitucion;
     private EditText campoLocalidad;
+
     private Usuario usuario;
 
     private TextInputLayout tilNombre;
@@ -33,7 +32,8 @@ public class Formulario extends AppCompatActivity {
     private TextInputLayout tilIntitucion;
     private TextInputLayout tilLocalidad;
 
-    private CheckBox checkLicencia;
+    private RadioGroup grupo;
+    private RadioButton campoLicencia;
 
 
 
@@ -56,7 +56,9 @@ public class Formulario extends AppCompatActivity {
         tilIntitucion = (TextInputLayout) findViewById(R.id.til_Institucion);
         tilLocalidad = (TextInputLayout) findViewById(R.id.til_localidad);
 
-        checkLicencia = (CheckBox) findViewById(R.id.check_licencia);
+        grupo = (RadioGroup) findViewById(R.id.opciones_licencia);
+
+        campoLicencia = (RadioButton) findViewById(R.id.radio_si);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,22 +71,7 @@ public class Formulario extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        campoLocalidad.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                esCorreoValido(String.valueOf(s));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         campoNombre.addTextChangedListener(new TextWatcher() {
             @Override
@@ -95,6 +82,23 @@ public class Formulario extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 tilNombre.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        campoDNI.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilDNI.setError(null);
             }
 
             @Override
@@ -125,47 +129,10 @@ public class Formulario extends AppCompatActivity {
         );
     }
 
-    public void guardarDatos(View v){
-
-        if(campoDNI.getText().toString().equals(campoInstitucion.getText().toString()) & !(campoDNI.getText().toString().equals("")) ){
-            validarDatos();
-            /*
-            esCorreoValido(campoLocalidad.getText().toString());
-
-
-            if(usuario.getNombre().equals("")){
-                mensaje.setText("Falta completar: Nombre y Apellido");
-                mensaje.setTextColor(Color.RED);
-                mensaje.setVisibility(View.VISIBLE);
-                campoNombre.requestFocus();
-            } else if(usuario.getMail().equals("")) {
-                mensaje.setText("Falta completar: E-mail");
-                mensaje.setTextColor(Color.RED);
-                mensaje.setVisibility(View.VISIBLE);
-                campoLocalidad.requestFocus();
-            } else  {
-                mensaje.setTextColor(Color.GRAY);
-                mensaje.setText("Está todo OK, "+usuario.getNombre());
-                mensaje.setVisibility(View.VISIBLE);
-                Intent intent = new Intent(this,Confirmacion.class);
-                intent.putExtra("EXTRA_NOMBRE",usuario.getNombre());
-                startActivity(intent);
-            }
-            */
 
 
 
-        }else{
-            mostrarMensaje(v, "Las contraseñas no coinsiden" );
-        }
 
-    }
-
-
-    private void mostrarMensaje(View view, String mensaje){
-        Snackbar.make(view, mensaje, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
 
 
     private boolean esNombreValido(String nombre) {
@@ -183,7 +150,7 @@ public class Formulario extends AppCompatActivity {
 
     private boolean esDNIValido(String password){
 
-        if (!(password.length() == 6)){
+        if (!(password.length() == 8)){
             tilDNI.setError("Número de DNI inválido");
             return false;
         } else {
@@ -193,33 +160,12 @@ public class Formulario extends AppCompatActivity {
     }
 
 
-    private boolean esEqualPass(String password, String repPassword){
-        if(password.equals(repPassword)){
-            return true;
-        } else{
-            tilIntitucion.setError("Las contraseñas no coinciden");
-            return false;
-        }
-    }
 
-
-
-
-    private boolean esCorreoValido(String correo) {
-        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            tilLocalidad.setError("Correo electrónico inválido");
-            return false;
-        } else {
-            tilLocalidad.setError(null);
-        }
-
-        return true;
-    }
 
     private boolean validarDatos() {
         String nombre = tilNombre.getEditText().getText().toString();
         String DNI = tilDNI.getEditText().getText().toString();
-        String Institucion = tilIntitucion.getEditText().getText().toString();
+        String institucion = tilIntitucion.getEditText().getText().toString();
         String localidad = tilLocalidad.getEditText().getText().toString();
         boolean aux =false;
 
@@ -254,10 +200,7 @@ public class Formulario extends AppCompatActivity {
 
 
     private boolean esFull(){
-        /*boolean aux [] = {estaCompleto(tilNombre),estaCompleto(tilDNI),estaCompleto(tilIntitucion),estaCompleto(tilLocalidad)};
-        boolean b = estaCompleto(tilDNI;
-        boolean c = estaCompleto(tilIntitucion);
-        boolean d = estaCompleto(tilLocalidad);*/
+
         if(estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion) && estaCompleto(tilLocalidad)){
             return true;
         } else {
@@ -270,11 +213,15 @@ public class Formulario extends AppCompatActivity {
 
 
 
+
+
     private void guardarDatos(){
         usuario = new Usuario();
         usuario.setNombre(campoNombre.getText().toString());
-        usuario.setContrasenia(campoDNI.getText().toString());
-        usuario.setMail(campoLocalidad.getText().toString());
+        usuario.setInstitucion(campoDNI.getText().toString());
+        usuario.setLocalidad(campoLocalidad.getText().toString());
+        usuario.setDni(Integer.getInteger(campoDNI.getText().toString()));
+        usuario.setEsLicencia(campoLicencia.isChecked());
     }
 
     public void lanzarActivity(){

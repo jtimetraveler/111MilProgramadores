@@ -15,6 +15,7 @@
         tools:layout_editor_absoluteY="8dp">
 
         <LinearLayout
+            android:id="@+id/layout_formulario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -29,6 +30,7 @@
 
                 <EditText
                     android:id="@+id/campo_nombre"
+                    style="@style/Widget.AppCompat.EditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre"
@@ -65,6 +67,38 @@
                     android:inputType="text"
                     android:textColorLink="@android:color/holo_blue_dark" />
 
+                <RadioGroup
+                    android:id="@+id/opciones_institucion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/text_inst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
+                        android:text="Institución: "
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_publica"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:checked="true"
+                        android:text="Pública" />
+
+                    <RadioButton
+                        android:id="@+id/radio_privada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Privada" />
+
+                </RadioGroup>
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -82,12 +116,12 @@
                     android:inputType="text"
                     android:textColorLink="@android:color/holo_blue_dark" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_weight="1" />
-
             </android.support.design.widget.TextInputLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_weight="1" />
 
             <RadioGroup
                 android:id="@+id/opciones_licencia"
@@ -100,8 +134,8 @@
                     android:id="@+id/text_licencia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Licencia"
                     android:layout_marginRight="30dp"
+                    android:text="Licencia"
                     android:textSize="18sp" />
 
                 <RadioButton
@@ -121,94 +155,61 @@
 
             </RadioGroup>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:text="Días:"
-                    android:textSize="18sp" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/til_diasDesde"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1">
-
-                    <EditText
-                        android:id="@+id/campoDiasDesde"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Desde" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/til_diasHasta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1">
-
-                    <EditText
-                        android:id="@+id/campoDiasHasta"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Hasta" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_ID"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/campoID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="ID" />
+
+                    android:hint="ID"
+                    android:inputType="number" />
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="agragarTil"
+
+                    android:text="Button" />
+
             </android.support.design.widget.TextInputLayout>
 
-            <RadioGroup
-                android:id="@+id/opciones_institucion"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_viaticos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="left"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/text_inst"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/campoViaticos"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Institución: "
-                    android:layout_marginRight="30dp"
-                    android:textSize="18sp" />
+                    android:hint="Viáticos"
+                    android:inputType="textMultiLine" />
 
-                <RadioButton
-                    android:id="@+id/radio_publica"
-                    android:layout_width="wrap_content"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_traslado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/campoTraslado"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:checked="true"
-                    android:text="Pública" />
+                    android:hint="Trnasporte"
+                    android:inputType="textMultiLine" />
 
-                <RadioButton
-                    android:id="@+id/radio_privada"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="Privada" />
-
-            </RadioGroup>
-
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 

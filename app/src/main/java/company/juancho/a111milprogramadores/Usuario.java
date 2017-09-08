@@ -9,7 +9,7 @@ public class Usuario {
     private String nombre, institucion, localidad;
 
     private int dni, fechaDesde, fechaHasta, idLicencia;
-    private boolean esLicencia, esPublica;
+    private boolean licencia, publica;
     private String viaticos, traslado;
 
     public String getNombre() {
@@ -68,20 +68,20 @@ public class Usuario {
         this.idLicencia = idLicencia;
     }
 
-    public boolean isEsLicencia() {
-        return esLicencia;
+    public boolean isLicencia() {
+        return licencia;
     }
 
-    public void setEsLicencia(boolean esLicencia) {
-        this.esLicencia = esLicencia;
+    public void setLicencia(boolean licencia) {
+        this.licencia = licencia;
     }
 
-    public boolean isEsPublica() {
-        return esPublica;
+    public boolean isPublica() {
+        return publica;
     }
 
-    public void setEsPublica(boolean esPublica) {
-        this.esPublica = esPublica;
+    public void setPublica(boolean publica) {
+        this.publica = publica;
     }
 
     public String getViaticos() {

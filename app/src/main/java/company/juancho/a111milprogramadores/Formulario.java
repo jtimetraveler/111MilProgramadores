@@ -1,7 +1,9 @@
 package company.juancho.a111milprogramadores;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,9 +11,12 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import java.util.regex.Pattern;
 
@@ -19,32 +24,31 @@ import company.juancho.a111milprogramadores.tools.Insertar;
 import company.juancho.a111milprogramadores.tools.MailJob;
 
 public class Formulario extends AppCompatActivity {
-
+    private int n = 10;
     private EditText campoNombre ;
     private EditText campoDNI;
     private EditText campoInstitucion;
     private EditText campoLocalidad;
+    private EditText campoID, campoViatico, campoTraslado;
+
 
     private Usuario usuario;
 
     private TextInputLayout tilNombre;
     private TextInputLayout tilDNI;
     private TextInputLayout tilIntitucion;
-    private TextInputLayout tilLocalidad;
+    private TextInputLayout tilLocalidad, tilID;
 
-    private RadioGroup grupo;
-    private RadioButton campoLicencia;
+    private RadioGroup grupoLicencia, grupoPublica;
+    private RadioButton campoLicencia, campoPublica;
 
+    private Button button;
 
+    private LinearLayout layoutFormulario;
+    private LinearLayout.LayoutParams layoutParams;
 
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_formulario);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void iniciarElementos() {
+        button = (Button) findViewById(R.id.button3);
 
         campoNombre = (EditText) findViewById(R.id.campo_nombre);
         campoDNI = (EditText) findViewById(R.id.campo_DNI);
@@ -56,9 +60,29 @@ public class Formulario extends AppCompatActivity {
         tilIntitucion = (TextInputLayout) findViewById(R.id.til_Institucion);
         tilLocalidad = (TextInputLayout) findViewById(R.id.til_localidad);
 
-        grupo = (RadioGroup) findViewById(R.id.opciones_licencia);
+        grupoLicencia = (RadioGroup) findViewById(R.id.opciones_licencia);
 
         campoLicencia = (RadioButton) findViewById(R.id.radio_si);
+        campoPublica = (RadioButton) findViewById(R.id.radio_publica);
+
+        layoutFormulario = (LinearLayout) findViewById(R.id.layout_formulario);
+        layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        assert layoutFormulario != null;
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_formulario);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        this.iniciarElementos();
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +223,23 @@ public class Formulario extends AppCompatActivity {
     }
 
 
+    public void agragarTil(View v) {
+        TextInputLayout titleWrapper = new TextInputLayout(this);
+        titleWrapper.setLayoutParams(layoutParams);
+        titleWrapper.setHint("Assessment Title:");
+
+        layoutFormulario.addView(titleWrapper);
+
+        EditText title = new EditText(this);
+        title.setLayoutParams(layoutParams);
+
+
+        titleWrapper.addView(title);
+
+
+    }
+
+
     private boolean esFull(){
 
         if(estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion) && estaCompleto(tilLocalidad)){
@@ -218,10 +259,14 @@ public class Formulario extends AppCompatActivity {
     private void guardarDatos(){
         usuario = new Usuario();
         usuario.setNombre(campoNombre.getText().toString());
-        usuario.setInstitucion(campoDNI.getText().toString());
+        usuario.setInstitucion(campoInstitucion.getText().toString());
         usuario.setLocalidad(campoLocalidad.getText().toString());
         usuario.setDni(Integer.getInteger(campoDNI.getText().toString()));
-        usuario.setEsLicencia(campoLicencia.isChecked());
+        usuario.setLicencia(campoLicencia.isChecked());
+        if (usuario.isLicencia()) {
+            usuario.setIdLicencia(Integer.parseInt(campoID.getText().toString()));
+        }
+
     }
 
     public void lanzarActivity(){

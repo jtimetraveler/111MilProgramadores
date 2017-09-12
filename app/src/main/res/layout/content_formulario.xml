@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_formulario">
 
     <ScrollView
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_margin="10dp"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
 
@@ -143,17 +144,37 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-                    android:checked="true"
+                    android:checked="false"
+                    android:onClick="onRadioButtonClicked"
                     android:text="Si" />
 
                 <RadioButton
                     android:id="@+id/radio_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"
                     android:text="No" />
 
             </RadioGroup>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_cargaHoraria"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/campo_cargaHoraria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:inputType="number"
+                    android:hint="Carga Horaria" />
+
+            </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_ID"
@@ -161,55 +182,57 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="left"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+
+                app:counterEnabled="true"
+                app:counterMaxLength="6">
 
                 <EditText
                     android:id="@+id/campoID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:enabled="false"
                     android:hint="ID"
                     android:inputType="number" />
 
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+
                 <Button
-                    android:id="@+id/button3"
+                    android:id="@+id/button_agregarLic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    
+                    android:layout_weight="1"
+                    android:text="Agregar Licencia" />
+
+                <Button
+                    android:id="@+id/button_modificar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Button"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/button_finalizar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:onClick="agragarTil"
+                    android:text="Finalizar" />
 
-                    android:text="Button" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_viaticos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <EditText
-                    android:id="@+id/campoViaticos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Viáticos"
-                    android:inputType="textMultiLine" />
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_traslado"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <EditText
-                    android:id="@+id/campoTraslado"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Trnasporte"
-                    android:inputType="textMultiLine" />
-
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

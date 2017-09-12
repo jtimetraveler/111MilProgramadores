@@ -1,16 +1,54 @@
 package company.juancho.a111milprogramadores;
 
+import java.util.ArrayList;
+
 /**
  * Created by juancho on 11/08/17.
  */
 
 public class Usuario {
 
+    //region Parámetros
     private String nombre, institucion, localidad;
 
-    private int dni, fechaDesde, fechaHasta, idLicencia;
+    private int dni ;
     private boolean licencia, publica;
-    private String viaticos, traslado;
+
+    private String wsPublica ="", wsCargaHoracia="", wsID="";
+
+    private ArrayList<Licencia> listaLicencias = new ArrayList<Licencia>();
+    //endregion
+
+    //private String viaticos, traslado;
+
+    //region Constructores
+
+    public Usuario() {
+    }
+
+    public Usuario(String nombre, String institucion, String localidad, int dni) {
+        this.nombre = nombre;
+        this.institucion = institucion;
+        this.localidad = localidad;
+        this.dni = dni;
+
+    }
+
+
+
+    //endregion
+
+
+    //region Getters and Setters
+
+
+    public ArrayList<Licencia> getListaLicencias() {
+        return listaLicencias;
+    }
+
+    public void setListaLicencias(ArrayList<Licencia> listaLicencias) {
+        this.listaLicencias = listaLicencias;
+    }
 
     public String getNombre() {
         return nombre;
@@ -44,29 +82,6 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public int getFechaDesde() {
-        return fechaDesde;
-    }
-
-    public void setFechaDesde(int fechaDesde) {
-        this.fechaDesde = fechaDesde;
-    }
-
-    public int getFechaHasta() {
-        return fechaHasta;
-    }
-
-    public void setFechaHasta(int fechaHasta) {
-        this.fechaHasta = fechaHasta;
-    }
-
-    public int getIdLicencia() {
-        return idLicencia;
-    }
-
-    public void setIdLicencia(int idLicencia) {
-        this.idLicencia = idLicencia;
-    }
 
     public boolean isLicencia() {
         return licencia;
@@ -84,6 +99,38 @@ public class Usuario {
         this.publica = publica;
     }
 
+    public String getWsPublica() {
+        for(int i=0;i<listaLicencias.size();i++){
+            wsPublica += "-" + listaLicencias.get(i).getPublica();
+        }
+        return wsPublica;
+    }
+
+    public String getWsCargaHoracia() {
+        for(int i=0;i<listaLicencias.size();i++){
+            wsCargaHoracia += "-" + listaLicencias.get(i).getCargaHoraria();
+        }
+
+        return wsCargaHoracia;
+    }
+
+    public String getWsID() {
+        for(int i=0;i<listaLicencias.size();i++){
+            wsID += "-" + listaLicencias.get(i).getID();
+        }
+        return wsID;
+    }
+
+    public String getWsLicencia(){
+        if(listaLicencias.size()==0){
+            return "No";
+        } else {
+            return "Si";
+        }
+    }
+
+
+    /*
     public String getViaticos() {
         return viaticos;
     }
@@ -99,4 +146,7 @@ public class Usuario {
     public void setTraslado(String traslado) {
         this.traslado = traslado;
     }
+    */
+
+    //endregion
 }

@@ -67,10 +67,13 @@ public class Main extends AppCompatActivity
             this.lanzarGrilla();
 
         } else if (id == R.id.nav_eventos) {
-            this.lanzarWeb();
+            this.lanzarWebCultura();
 
         } else if (id == R.id.nav_map) {
             this.lanzarMapa();
+
+        } else if (id == R.id.nav_emr) {
+            this.lanzarWebEMR();
 
         }
 
@@ -80,7 +83,7 @@ public class Main extends AppCompatActivity
     }
 
 
-    private void lanzarWeb(){
+    private void lanzarWebCultura(){
         Uri webpage = Uri.parse("https://www.rosariocultura.gob.ar/agenda");
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
         startActivity(webIntent);
@@ -107,6 +110,12 @@ public class Main extends AppCompatActivity
                 lat+","+lon+"(Rosario)");
         startActivity( new Intent(Intent.ACTION_VIEW, uri));
 
+    }
+
+    private void lanzarWebEMR(){
+        Uri webpage = Uri.parse("http://www.etr.gov.ar/info_movete.php");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
     }
 
 

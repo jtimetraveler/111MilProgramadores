@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import company.juancho.a111milprogramadores.Usuario;
 
@@ -24,36 +25,27 @@ import company.juancho.a111milprogramadores.Usuario;
  */
 
 //AsyncTask para insertar Personas
-public class Insertar extends AsyncTask<String,String,String> {
+public class Insertar extends AsyncTask<String, String, String> {
 
     private Activity context;
-    private String nombre, dni, telefono, email;
+
     private Usuario usuario;
 
 
-    public Insertar(Activity context, String nombre, String dni, String telefono, String email){
-
-        this.context=context;
-        this.nombre = nombre;
-        this.dni =  dni;
-        this.telefono =  telefono;
-        this.email =  email;
-        doInBackground();
-    }
-
-    public Insertar (Activity context, Usuario usuario){
+    public Insertar(Activity context, Usuario usuario) {
         this.usuario = usuario;
         this.context = context;
-        this.nombre = usuario.getNombre();
-        this.dni = usuario.getInstitucion();
-        this.email = usuario.getLocalidad();
-        this.telefono = usuario.getInstitucion();
+
+
+
+
     }
+
     @Override
     protected String doInBackground(String... params) {
         // TODO Auto-generated method stub
-        if(insertar(nombre, dni, telefono, email ))
-            context.runOnUiThread(new Runnable(){
+        if (insertar(usuario))
+            context.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
@@ -62,7 +54,7 @@ public class Insertar extends AsyncTask<String,String,String> {
                 }
             });
         else
-            context.runOnUiThread(new Runnable(){
+            context.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
@@ -73,18 +65,32 @@ public class Insertar extends AsyncTask<String,String,String> {
     }
 
 
-    private boolean insertar(String dni, String nombre, String email, String telefono){
+    private boolean insertar(Usuario usuario) {
         HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://institutosiris.com/ws/wservice.php"); // Url del Servidor
+        httpclient = new DefaultHttpClient();
+        httppost = new HttpPost("http://institutosiris.com/ws/wservice.php"); // Url del Servidor
         //Añadimos nuestros datos
-        nameValuePairs = new ArrayList<NameValuePair>(3);
-        nameValuePairs.add(new BasicNameValuePair("nomape",nombre.trim()));
-        nameValuePairs.add(new BasicNameValuePair("pass",dni.trim()));
-        nameValuePairs.add(new BasicNameValuePair("mail",email.trim()));
-        //nameValuePairs.add(new BasicNameValuePair("email",email.trim()));
+        nameValuePairs = new ArrayList<NameValuePair>(8);
+        nameValuePairs.add(new BasicNameValuePair("nomape",usuario.getNombre()));
+        nameValuePairs.add(new BasicNameValuePair("dni", String.valueOf(usuario.getDni())));
+        nameValuePairs.add(new BasicNameValuePair("institucion",usuario.getInstitucion()));
+        nameValuePairs.add(new BasicNameValuePair("publica", usuario.getWsPublica()));
+        nameValuePairs.add(new BasicNameValuePair("localidad",usuario.getLocalidad()));
+        nameValuePairs.add(new BasicNameValuePair("licencia", usuario.getWsLicencia()));
+        nameValuePairs.add(new BasicNameValuePair("ID", usuario.getWsID()));
+        nameValuePairs.add(new BasicNameValuePair("cargaHoraria", usuario.getWsCargaHoracia()));
+
+       /* nameValuePairs.add(new BasicNameValuePair("nomape", "jauncho"));
+        nameValuePairs.add(new BasicNameValuePair("dni", "13246567"));
+        nameValuePairs.add(new BasicNameValuePair("institucion", "111"));
+        nameValuePairs.add(new BasicNameValuePair("publica", "si"));
+        nameValuePairs.add(new BasicNameValuePair("localidad", "Ros"));
+        nameValuePairs.add(new BasicNameValuePair("licencia", "Si"));
+        nameValuePairs.add(new BasicNameValuePair("id", "123456"));
+        nameValuePairs.add(new BasicNameValuePair("cargaHoraria","2"));*/
+
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

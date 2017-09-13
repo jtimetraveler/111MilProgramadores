@@ -12,7 +12,9 @@ public class Usuario {
     private String nombre, institucion, localidad;
 
     private int dni ;
-    private boolean licencia, publica;
+    private boolean licencia, publica,viatico=false;
+
+    private String gasto = "", transporte ="";
 
     private String wsPublica ="", wsCargaHoracia="", wsID="";
 
@@ -99,24 +101,73 @@ public class Usuario {
         this.publica = publica;
     }
 
+    public boolean isViatico() {
+        return viatico;
+    }
+
+    public void setViatico(boolean viatico) {
+        this.viatico = viatico;
+    }
+
+    public void setTransporte(String transporte) {
+        this.transporte = transporte;
+    }
+
+
+
+
+    public String getGasto() {
+        return gasto;
+    }
+
+    public void setGasto(String gasto) {
+        this.gasto = gasto;
+    }
+
+    public  String getViatico(){
+        if(viatico){
+            return "Si";
+        } else {
+            return "No";
+        }
+    }
+
+    public String getTransporte(){
+        return transporte;
+    }
+
     public String getWsPublica() {
-        for(int i=0;i<listaLicencias.size();i++){
-            wsPublica += "-" + listaLicencias.get(i).getPublica();
+        if(!(listaLicencias.size()==0)) {
+            wsPublica = listaLicencias.get(0).getPublica();
+            for (int i = 1; i < listaLicencias.size(); i++) {
+                wsPublica += "-" + listaLicencias.get(i).getPublica();
+            }
+        } else if (publica){
+            wsPublica = "Pública";
+        } else {
+            wsPublica = "Privada";
         }
         return wsPublica;
     }
 
     public String getWsCargaHoracia() {
-        for(int i=0;i<listaLicencias.size();i++){
-            wsCargaHoracia += "-" + listaLicencias.get(i).getCargaHoraria();
-        }
+        if(!(listaLicencias.size()==0)) {
+            wsCargaHoracia = String.valueOf(listaLicencias.get(0).getCargaHoraria());
+            for (int i = 1; i < listaLicencias.size(); i++) {
+                wsCargaHoracia += "-" + listaLicencias.get(i).getCargaHoraria();
+            }
 
+        }
         return wsCargaHoracia;
     }
 
     public String getWsID() {
-        for(int i=0;i<listaLicencias.size();i++){
-            wsID += "-" + listaLicencias.get(i).getID();
+        if(!(listaLicencias.size()==0)) {
+            wsID = String.valueOf(listaLicencias.get(0).getID());
+
+            for (int i = 1; i < listaLicencias.size(); i++) {
+                wsID += "-" + listaLicencias.get(i).getID();
+            }
         }
         return wsID;
     }
@@ -130,23 +181,9 @@ public class Usuario {
     }
 
 
-    /*
-    public String getViaticos() {
-        return viaticos;
-    }
 
-    public void setViaticos(String viaticos) {
-        this.viaticos = viaticos;
-    }
 
-    public String getTraslado() {
-        return traslado;
-    }
 
-    public void setTraslado(String traslado) {
-        this.traslado = traslado;
-    }
-    */
 
     //endregion
 }

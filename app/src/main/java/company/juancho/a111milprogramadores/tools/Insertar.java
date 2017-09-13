@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import company.juancho.a111milprogramadores.Usuario;
 
@@ -35,7 +34,7 @@ public class Insertar extends AsyncTask<String, String, String> {
     public Insertar(Activity context, Usuario usuario) {
         this.usuario = usuario;
         this.context = context;
-
+        //Toast.makeText(context, "Usuario creado: "+usuario.getWsID(), Toast.LENGTH_LONG).show();
 
 
 
@@ -72,24 +71,18 @@ public class Insertar extends AsyncTask<String, String, String> {
         httpclient = new DefaultHttpClient();
         httppost = new HttpPost("http://institutosiris.com/ws/wservice.php"); // Url del Servidor
         //Añadimos nuestros datos
-        nameValuePairs = new ArrayList<NameValuePair>(8);
+        nameValuePairs = new ArrayList<NameValuePair>();
         nameValuePairs.add(new BasicNameValuePair("nomape",usuario.getNombre()));
         nameValuePairs.add(new BasicNameValuePair("dni", String.valueOf(usuario.getDni())));
         nameValuePairs.add(new BasicNameValuePair("institucion",usuario.getInstitucion()));
         nameValuePairs.add(new BasicNameValuePair("publica", usuario.getWsPublica()));
         nameValuePairs.add(new BasicNameValuePair("localidad",usuario.getLocalidad()));
         nameValuePairs.add(new BasicNameValuePair("licencia", usuario.getWsLicencia()));
-        nameValuePairs.add(new BasicNameValuePair("ID", usuario.getWsID()));
+        nameValuePairs.add(new BasicNameValuePair("id", usuario.getWsID()));
         nameValuePairs.add(new BasicNameValuePair("cargaHoraria", usuario.getWsCargaHoracia()));
-
-       /* nameValuePairs.add(new BasicNameValuePair("nomape", "jauncho"));
-        nameValuePairs.add(new BasicNameValuePair("dni", "13246567"));
-        nameValuePairs.add(new BasicNameValuePair("institucion", "111"));
-        nameValuePairs.add(new BasicNameValuePair("publica", "si"));
-        nameValuePairs.add(new BasicNameValuePair("localidad", "Ros"));
-        nameValuePairs.add(new BasicNameValuePair("licencia", "Si"));
-        nameValuePairs.add(new BasicNameValuePair("id", "123456"));
-        nameValuePairs.add(new BasicNameValuePair("cargaHoraria","2"));*/
+        nameValuePairs.add(new BasicNameValuePair("viatico", usuario.getViatico()));
+        nameValuePairs.add(new BasicNameValuePair("transporte", usuario.getTransporte()));
+        nameValuePairs.add(new BasicNameValuePair("gasto", usuario.getGasto()));
 
 
         try {

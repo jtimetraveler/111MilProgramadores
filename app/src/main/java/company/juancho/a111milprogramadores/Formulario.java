@@ -225,7 +225,7 @@ public class Formulario extends AppCompatActivity {
         if (validarDatos()) {
             // OK, se pasa a la siguiente acción
             guardarDatos();
-            Toast.makeText(this, "El ID es: "+usuario.getWsID(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "El ID es: "+usuario.getWsID(), Toast.LENGTH_LONG).show();
             new Insertar(this, usuario).execute();
 
             Toast.makeText(this, "Se ha realizado el registro, espere confirmación", Toast.LENGTH_LONG).show();
@@ -334,10 +334,10 @@ public class Formulario extends AppCompatActivity {
 
 
         usuario.setListaLicencias(licencias);
-        if(licencias.size()==0){
+        /*if(licencias.size()==0){
             usuario.setPublica(campoPublica.isChecked());
 
-        }
+        }*/
         usuario.setViatico(campoViatico.isChecked());
         if(usuario.isViatico()){
             usuario.setGasto(tilGasto.getEditText().getText().toString());

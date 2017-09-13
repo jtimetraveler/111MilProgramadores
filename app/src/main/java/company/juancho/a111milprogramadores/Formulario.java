@@ -518,7 +518,7 @@ public class Formulario extends AppCompatActivity {
 
 
         // added Button
-        ImageButton button = new ImageButton(this);
+        final ImageButton button = new ImageButton(this);
         button.setImageResource(R.drawable.ic_menu_edit);
         //button.setLayoutParams(params);
         button.setId(m);
@@ -529,6 +529,8 @@ public class Formulario extends AppCompatActivity {
                 editarLicencia(view);
                 habitarBonetes(false);
                 buttonFinalizar.setEnabled(false);
+                buttonAgregarLicencia.setEnabled(false);
+                buttonAgregarLicencia.setVisibility(View.INVISIBLE);
                 campoLicenciaSi.requestFocus();
             }
         });

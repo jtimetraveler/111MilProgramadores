@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_formulario">
 
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
@@ -24,6 +24,21 @@
             tools:layout_editor_absoluteY="8dp">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_apellido"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/campo_apellido"
+                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Apellido"
+                    android:inputType="textPersonName" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,8 +50,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre"
-                    android:inputType="textPersonName"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:inputType="textPersonName" />
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -50,8 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="DNI"
-                    android:inputType="number"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -65,8 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Institución a la que representa"
-                    android:inputType="text"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -84,10 +97,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Localidad"
-                    android:inputType="text"
-                    android:textColorLink="@android:color/holo_blue_dark" />
+                    android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+                <EditText
+                    android:id="@+id/campo_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-mail"
+                    android:inputType="textEmailAddress" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+                <EditText
+                    android:id="@+id/campo_telefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Teléfono"
+                    android:inputType="phone" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <Space
                 android:layout_width="match_parent"
@@ -127,6 +172,26 @@
                     android:text="No" />
 
             </RadioGroup>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_ID"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/campoID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="ID"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
             <RadioGroup
                 android:id="@+id/opciones_institucion"
@@ -179,24 +244,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_ID"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="left"
-                android:orientation="horizontal"
-                >
 
-                <EditText
-                    android:id="@+id/campoID"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:hint="ID"
-                    android:inputType="number" />
-
-            </android.support.design.widget.TextInputLayout>
 
 
 
@@ -249,7 +297,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="30dp"
-                    android:text="Viatico "
+                    android:text="Viatico (<50km): "
                     android:textSize="18sp" />
 
                 <RadioButton
@@ -283,8 +331,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="30dp"
-                    android:text="Transporte: "
+                    android:text="Traslado: "
                     android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_trasladoNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No" />
 
                 <RadioButton
                     android:id="@+id/radio_colectivo"

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Usuario {
 
     //region Parámetros
-    private String nombre, institucion, localidad;
+    private String nombre, apellido, institucion, localidad;
 
     private int dni ;
     private boolean licencia, publica,viatico=false;
@@ -17,6 +17,8 @@ public class Usuario {
     private String gasto = "", transporte ="";
 
     private String wsPublica ="", wsCargaHoracia="", wsID="";
+
+    private String mail, telefono;
 
     private ArrayList<Licencia> listaLicencias = new ArrayList<Licencia>();
     //endregion
@@ -84,6 +86,29 @@ public class Usuario {
         this.dni = dni;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
     public boolean isLicencia() {
         return licencia;

@@ -83,6 +83,9 @@ public class Insertar extends AsyncTask<String, String, String> {
         nameValuePairs.add(new BasicNameValuePair("viatico", usuario.getViatico()));
         nameValuePairs.add(new BasicNameValuePair("transporte", usuario.getTransporte()));
         nameValuePairs.add(new BasicNameValuePair("gasto", usuario.getGasto()));
+        nameValuePairs.add(new BasicNameValuePair("apellido", usuario.getApellido()));
+        nameValuePairs.add(new BasicNameValuePair("mail", usuario.getMail()));
+        nameValuePairs.add(new BasicNameValuePair("telefono", usuario.getTelefono()));
 
 
         try {

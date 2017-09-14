@@ -29,6 +29,8 @@ public class Formulario extends AppCompatActivity {
     //region Parametros
     private int n = 0, m = 0;
     private EditText campoNombre;
+    private EditText campoApellido, campoMail, campoTelefono;
+
     private EditText campoDNI;
     private EditText campoInstitucion;
     private EditText campoLocalidad, campoCargaHoraria, campoID;
@@ -37,12 +39,14 @@ public class Formulario extends AppCompatActivity {
 
     private Usuario usuario;
 
-    private TextInputLayout tilNombre;
+    private TextInputLayout tilNombre, tilApellido, tilMail, tilTelefono;
     private TextInputLayout tilDNI;
     private TextInputLayout tilIntitucion;
     private TextInputLayout tilLocalidad, tilID, tilCargaHoraria, tilGasto;
 
+
     private RadioGroup grupoLicencia, grupoVehiculo, grupoViatico;
+    private RadioGroup grupoInstitucion;
     private RadioButton campoLicenciaSi, campoLicenciaNo, campoPublica, campoPrivada, campoViatico, campoColectivo;
 
     private Button buttonAgregarLicencia, buttonFinalizar, buttonModificar;
@@ -75,6 +79,10 @@ public class Formulario extends AppCompatActivity {
         tilDNI = (TextInputLayout) findViewById(R.id.til_DNI);
         tilIntitucion = (TextInputLayout) findViewById(R.id.til_Institucion);
         tilLocalidad = (TextInputLayout) findViewById(R.id.til_localidad);
+        tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
+        tilMail = (TextInputLayout) findViewById(R.id.til_mail);
+        tilTelefono = (TextInputLayout) findViewById(R.id.til_telefono);
+
         tilID = (TextInputLayout) findViewById(R.id.til_ID);
         tilCargaHoraria = (TextInputLayout) findViewById(R.id.til_cargaHoraria);
         tilGasto = (TextInputLayout) findViewById(R.id.til_transposteKM);
@@ -83,6 +91,8 @@ public class Formulario extends AppCompatActivity {
         grupoVehiculo = (RadioGroup) findViewById(R.id.opciones_transporte);
         grupoLicencia = (RadioGroup) findViewById(R.id.opciones_licencia);
         grupoViatico = (RadioGroup) findViewById(R.id.opciones_viatico);
+        grupoInstitucion = (RadioGroup) findViewById(R.id.opciones_institucion);
+
 
         campoLicenciaSi = (RadioButton) findViewById(R.id.radio_si);
         campoLicenciaNo = (RadioButton) findViewById(R.id.radio_no);
@@ -107,8 +117,11 @@ public class Formulario extends AppCompatActivity {
 
         listaID.add((TextInputLayout) findViewById(R.id.til_ID));
 
-        grupoVehiculo.check(R.id.radio_viaticoNO);
+        habilitarLicencia(false);
+        grupoLicencia.check(R.id.radio_no);
         habilitarTraslado(false);
+        grupoVehiculo.check(R.id.radio_viaticoNO);
+
 
     }
 
@@ -331,7 +344,9 @@ public class Formulario extends AppCompatActivity {
     private void guardarDatos() {
         usuario = new Usuario(campoNombre.getText().toString(), campoInstitucion.getText().toString(), campoLocalidad.getText().toString(), Integer.parseInt(campoDNI.getText().toString()));
 
-
+        usuario.setApellido(tilApellido.getEditText().getText().toString());
+        usuario.setMail(campoMail.getText().toString());
+        usuario.setTelefono(campoTelefono.getText().toString());
 
         usuario.setListaLicencias(licencias);
         /*if(licencias.size()==0){
@@ -453,15 +468,21 @@ public class Formulario extends AppCompatActivity {
     }
 
 
-    public void habilitarLicencia(boolean ver) {
-        tilCargaHoraria.setEnabled(ver);
-        tilID.setEnabled(ver);
-        buttonAgregarLicencia.setEnabled(ver);
-        if (ver) {
+    public void habilitarLicencia(boolean parametro) {
+        tilCargaHoraria.setEnabled(parametro);
+        tilID.setEnabled(parametro);
+        buttonAgregarLicencia.setEnabled(parametro);
+        for (int i = 0; i < grupoInstitucion.getChildCount(); i++) {
+            grupoInstitucion.getChildAt(i).setEnabled(parametro);
+
+        }
+
+        /*
+        if (parametro) {
             buttonAgregarLicencia.setVisibility(View.VISIBLE);
         } else {
             buttonAgregarLicencia.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
     }
 
@@ -549,7 +570,7 @@ public class Formulario extends AppCompatActivity {
 
 
     private void mostrarLicencia(Licencia licencia, int i) {
-        listaTextLicencias.get(i).setText(licencia.getID() + " - " + licencia.getCargaHoraria() + " - " + licencia.getPublica());
+        listaTextLicencias.get(i).setText("ID: " + licencia.getID() + " - Carga Horaria: " + licencia.getCargaHoraria() + " (" + licencia.getPublica() + ")");
     }
 
 

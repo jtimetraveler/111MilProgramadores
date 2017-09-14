@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -21,8 +22,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
-import company.juancho.a111milprogramadores.tools.Insertar;
 
 public class Formulario extends AppCompatActivity {
 
@@ -73,6 +72,9 @@ public class Formulario extends AppCompatActivity {
         campoDNI = (EditText) findViewById(R.id.campo_DNI);
         campoInstitucion = (EditText) findViewById(R.id.campo_Institucion);
         campoLocalidad = (EditText) findViewById(R.id.campo_localidad);
+        campoMail = (EditText) findViewById(R.id.campo_mail);
+        campoApellido = (EditText) findViewById(R.id.campo_apellido);
+        campoTelefono = (EditText) findViewById(R.id.campo_telefono);
 
 
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
@@ -118,11 +120,12 @@ public class Formulario extends AppCompatActivity {
         listaID.add((TextInputLayout) findViewById(R.id.til_ID));
 
         habilitarLicencia(false);
-        grupoLicencia.check(R.id.radio_no);
+
         habilitarTraslado(false);
-        grupoVehiculo.check(R.id.radio_viaticoNO);
+        grupoVehiculo.check(R.id.radio_trasladoNo);
+        grupoLicencia.check(R.id.radio_viaticoNO);
 
-
+        campoLicenciaNo.setChecked(true);
     }
 
 
@@ -171,9 +174,13 @@ public class Formulario extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
                 switch (id) {
                     case R.id.radio_viaticoSI:
+                        grupoVehiculo.getChildAt(1).setEnabled(false);
+                        grupoVehiculo.check(R.id.radio_colectivo);
                         habilitarTraslado(true);
                         break;
                     case R.id.radio_viaticoNO:
+                        grupoVehiculo.getChildAt(1).setEnabled(true);
+                        grupoVehiculo.check(R.id.radio_trasladoNo);
                         habilitarTraslado(false);
                         break;
                 }
@@ -184,10 +191,15 @@ public class Formulario extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
                 switch (id) {
+                    case R.id.radio_trasladoNo:
+                        habilitarTraslado(false);
+                        break;
                     case R.id.radio_colectivo:
+                        habilitarTraslado(true);
                         tilGasto.setHint("Precio del pasaje");
                         break;
                     case R.id.radio_auto:
+                        habilitarTraslado(true);
                         tilGasto.setHint("Gasto promedio en combustible y peajes");
                         break;
                 }
@@ -203,6 +215,40 @@ public class Formulario extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 tilNombre.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        campoApellido.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilNombre.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        campoMail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                esCorreoValido(String.valueOf(s));
             }
 
             @Override
@@ -228,22 +274,58 @@ public class Formulario extends AppCompatActivity {
             }
         });
 
+        campoID.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilNombre.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        campoTelefono.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tilNombre.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
     }
 
 
     private void pressBoton() {
 
+        boolean c = validarDatos();
 
+        mostrarMensaje("Esta todo bien con Validar");
+/*
         if (validarDatos()) {
             // OK, se pasa a la siguiente acción
             guardarDatos();
-            
-            new Insertar(this, usuario).execute();
+
+            //new Insertar(this, usuario).execute();
 
             Toast.makeText(this, "Se ha realizado el registro, espere confirmación", Toast.LENGTH_LONG).show();
-            lanzarMainActivity();
-        }
+            //lanzarMainActivity();
+        }*/
 
 
     }
@@ -278,10 +360,32 @@ public class Formulario extends AppCompatActivity {
 
     }
 
+    private boolean esCorreoValido(String correo) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            tilMail.setError("Correo electrónico inválido");
+            return false;
+        } else {
+            tilMail.setError(null);
+        }
+
+        return true;
+    }
+
     private boolean esIDValido(String id){
         if ((id.length()>6 )) {
             tilID.setError("Número de ID inválido");
             tilID.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean esTelefonoValido(String tel){
+
+        if ( !(tel.length()==10)) {
+            tilTelefono.setError("Número de Teléfono inválido");
+            tilTelefono.requestFocus();
             return false;
         } else {
             return true;
@@ -302,6 +406,8 @@ public class Formulario extends AppCompatActivity {
             boolean a = esNombreValido(nombre);
             boolean b = esDNIValido(DNI);
             boolean c = true;
+            boolean d = esTelefonoValido(tilTelefono.getEditText().getText().toString());
+
             if(campoLicenciaSi.isChecked()){
                 c = esIDValido(campoID.getText().toString());
             }
@@ -322,7 +428,8 @@ public class Formulario extends AppCompatActivity {
         boolean respuesta = false;
 
 
-        if (estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion) && estaCompleto(tilLocalidad)) {
+        if ( estaCompleto(tilApellido) && estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion)
+                && estaCompleto(tilLocalidad) && estaCompleto(tilMail) && estaCompleto(tilTelefono)) {
             if (campoLicenciaSi.isChecked()) {
                 if (estaCompleto(tilID)) {
                     respuesta = true;
@@ -373,7 +480,7 @@ public class Formulario extends AppCompatActivity {
         lic.setID(Integer.parseInt(campoID.getText().toString()));
         lic.setPublica(campoPublica.isChecked());
         licencias.add(lic);
-        limpiarCampos();
+        limpiarCamposLicencia();
         return lic;
     }
 
@@ -383,7 +490,7 @@ public class Formulario extends AppCompatActivity {
         lic.setID(Integer.parseInt(campoID.getText().toString()));
         lic.setPublica(campoPublica.isChecked());
         licencias.set(index, lic);
-        limpiarCampos();
+        limpiarCamposLicencia();
         return lic;
     }
 
@@ -416,7 +523,7 @@ public class Formulario extends AppCompatActivity {
     }
 
 
-    private void limpiarCampos() {
+    private void limpiarCamposLicencia() {
 
         this.limpiarTIL(tilCargaHoraria);
         this.limpiarTIL(tilID);
@@ -458,10 +565,6 @@ public class Formulario extends AppCompatActivity {
 
 
         tilGasto.setEnabled(parametro);
-        for (int i = 0; i < grupoVehiculo.getChildCount(); i++) {
-            grupoVehiculo.getChildAt(i).setEnabled(parametro);
-
-        }
 
         tilGasto.setHint("");
 

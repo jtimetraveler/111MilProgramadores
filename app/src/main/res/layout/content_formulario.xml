@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="company.juancho.a111milprogramadores.Formulario"
     tools:showIn="@layout/activity_formulario">
 
     <ScrollView
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
@@ -141,7 +142,7 @@
 
             <RadioGroup
                 android:id="@+id/opciones_licencia"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="left"
                 android:orientation="horizontal">
@@ -174,6 +175,7 @@
             </RadioGroup>
 
 
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_ID"
                 android:layout_width="match_parent"
@@ -192,12 +194,18 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
+
 
             <RadioGroup
                 android:id="@+id/opciones_institucion"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+
                 android:gravity="left"
                 android:orientation="horizontal">
 
@@ -284,6 +292,11 @@
                 android:orientation="vertical"></LinearLayout>
 
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_weight="1" />
+
             <RadioGroup
                 android:id="@+id/opciones_viatico"
                 android:layout_width="match_parent"
@@ -297,7 +310,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
                     android:layout_marginRight="30dp"
-                    android:text="Viatico (<50km): "
+                    android:text="Viatico (más de 50km): "
                     android:textSize="18sp" />
 
                 <RadioButton
@@ -318,6 +331,10 @@
             </RadioGroup>
 
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
             <RadioGroup
                 android:id="@+id/opciones_transporte"
                 android:layout_width="match_parent"
@@ -338,7 +355,7 @@
                     android:id="@+id/radio_trasladoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:checked="true"
                     android:text="No" />
 
                 <RadioButton
@@ -353,7 +370,7 @@
                     android:id="@+id/radio_auto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="Auto" />
 
             </RadioGroup>

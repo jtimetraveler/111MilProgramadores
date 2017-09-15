@@ -12,7 +12,7 @@ public class Usuario {
     private String nombre, apellido, institucion, localidad;
 
     private int dni ;
-    private boolean licencia, publica,viatico=false;
+    private boolean licencia, publica, viatico=false;
 
     private String gasto = "", transporte ="";
 

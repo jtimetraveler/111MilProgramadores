@@ -1,7 +1,9 @@
 package company.juancho.a111milprogramadores.tools;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 //import android.service.textservice.SpellCheckerService;
 
 
@@ -15,16 +17,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-/**
- * Created by snolde on 06-04-2017.
- */
 
 public class MailJob extends AsyncTask<MailJob.Mail,Void,Void> {
     private final String user;
     private final String pass;
+    private final Activity context;
 
-    public MailJob(String user, String pass) {
+    public MailJob(Activity context, String user, String pass) {
         super();
+        this.context = context;
         this.user=user;
         this.pass=pass;
     }
@@ -55,6 +56,14 @@ public class MailJob extends AsyncTask<MailJob.Mail,Void,Void> {
                 message.setText(mail.content);
 
                 Transport.send(message);
+                context.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Toast.makeText(context, "Revise su casilla de correo", Toast.LENGTH_LONG).show();
+
+                    }
+                });
 
             } catch (MessagingException e) {
                 Log.d("MailJob", e.getMessage());
@@ -64,10 +73,11 @@ public class MailJob extends AsyncTask<MailJob.Mail,Void,Void> {
     }
 
     public static class Mail{
-        private final String subject;
-        private final String content;
-        private final String from;
+        private final String subject ;
+        private final String content ;
+        private final String from ;
         private final String to;
+
 
         public Mail(String from, String to, String subject, String content){
             this.subject=subject;

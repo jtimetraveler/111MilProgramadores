@@ -23,6 +23,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import company.juancho.a111milprogramadores.tools.Insertar;
+import company.juancho.a111milprogramadores.tools.MailJob;
+
 public class Formulario extends AppCompatActivity {
 
     //region Parametros
@@ -176,12 +179,13 @@ public class Formulario extends AppCompatActivity {
                     case R.id.radio_viaticoSI:
                         grupoVehiculo.getChildAt(1).setEnabled(false);
                         grupoVehiculo.check(R.id.radio_colectivo);
-                        habilitarTraslado(true);
+                        manejoTransporte(R.id.radio_colectivo);
                         break;
                     case R.id.radio_viaticoNO:
                         grupoVehiculo.getChildAt(1).setEnabled(true);
                         grupoVehiculo.check(R.id.radio_trasladoNo);
-                        habilitarTraslado(false);
+                        manejoTransporte(R.id.radio_trasladoNo);
+
                         break;
                 }
             }
@@ -190,19 +194,7 @@ public class Formulario extends AppCompatActivity {
         grupoVehiculo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
-                switch (id) {
-                    case R.id.radio_trasladoNo:
-                        habilitarTraslado(false);
-                        break;
-                    case R.id.radio_colectivo:
-                        habilitarTraslado(true);
-                        tilGasto.setHint("Precio del pasaje");
-                        break;
-                    case R.id.radio_auto:
-                        habilitarTraslado(true);
-                        tilGasto.setHint("Gasto promedio en combustible y peajes");
-                        break;
-                }
+                manejoTransporte(id);
             }
         });
 
@@ -231,7 +223,7 @@ public class Formulario extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilNombre.setError(null);
+                tilApellido.setError(null);
             }
 
             @Override
@@ -282,7 +274,7 @@ public class Formulario extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilNombre.setError(null);
+                tilID.setError(null);
             }
 
             @Override
@@ -298,7 +290,7 @@ public class Formulario extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tilNombre.setError(null);
+                tilTelefono.setError(null);
             }
 
             @Override
@@ -308,29 +300,44 @@ public class Formulario extends AppCompatActivity {
         });
 
 
+
+
     }
 
 
     private void pressBoton() {
 
-        boolean c = validarDatos();
 
-        mostrarMensaje("Esta todo bien con Validar");
-/*
+
+
         if (validarDatos()) {
             // OK, se pasa a la siguiente acción
             guardarDatos();
 
-            //new Insertar(this, usuario).execute();
-
+            new Insertar(this, usuario).execute();
+            sendEmail(usuario.getMail());
             Toast.makeText(this, "Se ha realizado el registro, espere confirmación", Toast.LENGTH_LONG).show();
-            //lanzarMainActivity();
-        }*/
+            lanzarMainActivity();
+        }
 
 
     }
 
-
+    public void manejoTransporte(@IdRes int id) {
+        switch (id) {
+            case R.id.radio_trasladoNo:
+                habilitarTraslado(false);
+                break;
+            case R.id.radio_colectivo:
+                habilitarTraslado(true);
+                tilGasto.setHint("Precio del pasaje");
+                break;
+            case R.id.radio_auto:
+                habilitarTraslado(true);
+                tilGasto.setHint("Gasto promedio en combustible y peajes");
+                break;
+        }
+    }
 
 
     //region Métodos de valiudación del formulario
@@ -403,17 +410,19 @@ public class Formulario extends AppCompatActivity {
 
         if (esFull()) {
 
-            boolean a = esNombreValido(nombre);
-            boolean b = esDNIValido(DNI);
+
             boolean c = true;
             boolean d = esTelefonoValido(tilTelefono.getEditText().getText().toString());
+            boolean e = esCorreoValido(campoMail.getText().toString());
+            boolean b = esDNIValido(DNI);
+            boolean a = esNombreValido(nombre);
 
             if(campoLicenciaSi.isChecked()){
                 c = esIDValido(campoID.getText().toString());
             }
 
 
-            if (a && b && c) {
+            if (a && b && c && d && e) {
                 aux = true;
             }
 
@@ -431,7 +440,7 @@ public class Formulario extends AppCompatActivity {
         if ( estaCompleto(tilApellido) && estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion)
                 && estaCompleto(tilLocalidad) && estaCompleto(tilMail) && estaCompleto(tilTelefono)) {
             if (campoLicenciaSi.isChecked()) {
-                if (estaCompleto(tilID)) {
+                if (estaCompleto(tilID ) && estaCompleto(tilCargaHoraria)) {
                     respuesta = true;
                 }
             } else {
@@ -461,15 +470,21 @@ public class Formulario extends AppCompatActivity {
 
         }*/
         usuario.setViatico(campoViatico.isChecked());
-        if(usuario.isViatico()){
-            usuario.setGasto(tilGasto.getEditText().getText().toString());
-            if(campoColectivo.isChecked()){
-                usuario.setTransporte("Colectivo");
-            } else {
+        switch (grupoVehiculo.getCheckedRadioButtonId()){
+            case R.id.radio_trasladoNo:
+                usuario.setTransporte("No");
+                break;
+            case R.id.radio_auto:
                 usuario.setTransporte("Auto");
-            }
-
+                usuario.setGasto(tilGasto.getEditText().getText().toString());
+                break;
+            case R.id.radio_colectivo:
+                usuario.setTransporte("Colectivo");
+                usuario.setGasto(tilGasto.getEditText().getText().toString());
+                break;
         }
+
+
 
 
     }
@@ -709,12 +724,12 @@ public class Formulario extends AppCompatActivity {
 
 
     //region Basura (?
-    /*
     protected void sendEmail(String mail) {
-        new MailJob("prog111mil@hotmail.com", "curso111mil").execute(
-                new MailJob.Mail("prog111mil@hotmail.com", mail, "Inscripción ", "La Inscripción se ha realizado exitosamente. Gracias, vuelva pronto.")
+        new MailJob(this, "prog111mil@hotmail.com", "curso111mil").execute(
+                new MailJob.Mail("prog111mil@hotmail.com", mail, "Inscripción ", "La Inscripción se ha realizado exitosamente. " +
+                        "Necesitariamos una cuenta de correo oficial desde donde mandar los mail y todo lo que iría en ellos.")
         );
-    }*/
+    }
 
 
     //endregion

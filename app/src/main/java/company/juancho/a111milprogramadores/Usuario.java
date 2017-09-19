@@ -12,13 +12,15 @@ public class Usuario {
     private String nombre, apellido, institucion, localidad;
 
     private int dni ;
-    private boolean licencia, publica, viatico=false;
+    private boolean licencia, publica, viatico=false, traslado;
 
-    private String gasto = "", transporte ="";
+    private String gasto = "", transporte ="", peaje="";
 
     private String wsPublica ="", wsCargaHoracia="", wsID="";
 
     private String mail, telefono;
+
+    private String menu="";
 
     private ArrayList<Licencia> listaLicencias = new ArrayList<Licencia>();
     //endregion
@@ -126,6 +128,30 @@ public class Usuario {
         this.publica = publica;
     }
 
+    public String getPeaje() {
+        return peaje;
+    }
+
+    public void setPeaje(String peaje) {
+        this.peaje = peaje;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+
+    public boolean isTraslado() {
+        return traslado;
+    }
+
+    public void setTraslado(boolean traslado) {
+        this.traslado = traslado;
+    }
+
     public boolean isViatico() {
         return viatico;
     }
@@ -139,7 +165,13 @@ public class Usuario {
     }
 
 
-
+    public  String getTraslado(){
+        if(traslado){
+            return "Si";
+        } else {
+            return "No";
+        }
+    }
 
     public String getGasto() {
         return gasto;

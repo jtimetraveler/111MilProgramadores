@@ -11,6 +11,9 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,6 +39,7 @@ public class Formulario extends AppCompatActivity {
     private EditText campoDNI;
     private EditText campoInstitucion;
     private EditText campoLocalidad, campoCargaHoraria, campoID;
+    private EditText campoPeaje;
     //private EditText campoID, campoViatico, campoTraslado;
 
 
@@ -44,12 +48,12 @@ public class Formulario extends AppCompatActivity {
     private TextInputLayout tilNombre, tilApellido, tilMail, tilTelefono;
     private TextInputLayout tilDNI;
     private TextInputLayout tilIntitucion;
-    private TextInputLayout tilLocalidad, tilID, tilCargaHoraria, tilGasto;
+    private TextInputLayout tilLocalidad, tilID, tilCargaHoraria, tilGasto, tilPeaje;
 
 
-    private RadioGroup grupoLicencia, grupoVehiculo, grupoViatico;
+    private RadioGroup grupoLicencia, grupoVehiculo, grupoViatico, grupoTraslado, grupoMenu;
     private RadioGroup grupoInstitucion;
-    private RadioButton campoLicenciaSi, campoLicenciaNo, campoPublica, campoPrivada, campoViatico, campoColectivo;
+    private RadioButton campoLicenciaSi, campoLicenciaNo, campoPublica, campoPrivada, campoViatico, campoColectivo, campoTrasladoSi;
 
     private Button buttonAgregarLicencia, buttonFinalizar, buttonModificar;
 
@@ -62,6 +66,8 @@ public class Formulario extends AppCompatActivity {
 
 
     private ArrayList<Licencia> licencias = new ArrayList<Licencia>();
+
+    private LinearLayout lBotonesLicencia;
 
     //endregion
 
@@ -79,6 +85,8 @@ public class Formulario extends AppCompatActivity {
         campoApellido = (EditText) findViewById(R.id.campo_apellido);
         campoTelefono = (EditText) findViewById(R.id.campo_telefono);
 
+        campoPeaje = (EditText) findViewById(R.id.campo_peaje);
+
 
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
         tilDNI = (TextInputLayout) findViewById(R.id.til_DNI);
@@ -91,12 +99,16 @@ public class Formulario extends AppCompatActivity {
         tilID = (TextInputLayout) findViewById(R.id.til_ID);
         tilCargaHoraria = (TextInputLayout) findViewById(R.id.til_cargaHoraria);
         tilGasto = (TextInputLayout) findViewById(R.id.til_transposteKM);
+        tilPeaje = (TextInputLayout) findViewById(R.id.til_peaje);
 
 
+        grupoTraslado = (RadioGroup) findViewById(R.id.opciones_traslado);
         grupoVehiculo = (RadioGroup) findViewById(R.id.opciones_transporte);
         grupoLicencia = (RadioGroup) findViewById(R.id.opciones_licencia);
         grupoViatico = (RadioGroup) findViewById(R.id.opciones_viatico);
         grupoInstitucion = (RadioGroup) findViewById(R.id.opciones_institucion);
+        grupoMenu = (RadioGroup) findViewById(R.id.opciones_menu);
+
 
 
         campoLicenciaSi = (RadioButton) findViewById(R.id.radio_si);
@@ -105,7 +117,7 @@ public class Formulario extends AppCompatActivity {
         campoPrivada = (RadioButton) findViewById(R.id.radio_privada);
         campoViatico = (RadioButton) findViewById(R.id.radio_viaticoSI);
         campoColectivo = (RadioButton) findViewById(R.id.radio_colectivo);
-
+        campoTrasladoSi = (RadioButton) findViewById(R.id.radio_trasladoSi);
 
         campoID = (EditText) findViewById(R.id.campoID);
         campoCargaHoraria = (EditText) findViewById(R.id.campo_cargaHoraria);
@@ -116,7 +128,7 @@ public class Formulario extends AppCompatActivity {
         layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-
+        lBotonesLicencia = (LinearLayout) findViewById(R.id.layout_botones_licencia);
         assert layoutFormulario != null;
 
 
@@ -146,7 +158,7 @@ public class Formulario extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                pressBoton();
+                pressBotonFinalizar();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -172,29 +184,58 @@ public class Formulario extends AppCompatActivity {
             }
         });
 
-        grupoViatico.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        /*grupoViatico.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
                 switch (id) {
                     case R.id.radio_viaticoSI:
                         grupoVehiculo.getChildAt(1).setEnabled(false);
                         grupoVehiculo.check(R.id.radio_colectivo);
-                        manejoTransporte(R.id.radio_colectivo);
+                        habilitarTraslado(true);
                         break;
                     case R.id.radio_viaticoNO:
                         grupoVehiculo.getChildAt(1).setEnabled(true);
                         grupoVehiculo.check(R.id.radio_trasladoNo);
-                        manejoTransporte(R.id.radio_trasladoNo);
+                        habilitarTraslado(false);
+                        break;
+                }
+            }
+        });*/
 
+
+        grupoTraslado.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
+                switch (id) {
+                    case R.id.radio_trasladoNo:
+                        habilitarTraslado(false);
+                        break;
+                    case R.id.radio_trasladoSi:
+                        habilitarTraslado(true);
+                        campoColectivo.setChecked(true);
+                        tilGasto.setHint("Precio del pasaje");
                         break;
                 }
             }
         });
 
+
         grupoVehiculo.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
-                manejoTransporte(id);
+                switch (id) {
+                    case R.id.radio_colectivo:
+                        tilGasto.setHint("Precio del pasaje");
+                        tilPeaje.setEnabled(false);
+                        mostralLinearLayout(tilPeaje,false);
+
+                        break;
+                    case R.id.radio_auto:
+                        tilGasto.setHint("Gasto promedio en combustible");
+                        tilPeaje.setEnabled(true);
+                        mostrarTIL(tilPeaje);
+                        break;
+                }
             }
         });
 
@@ -300,12 +341,10 @@ public class Formulario extends AppCompatActivity {
         });
 
 
-
-
     }
 
 
-    private void pressBoton() {
+    private void pressBotonFinalizar() {
 
 
 
@@ -313,7 +352,7 @@ public class Formulario extends AppCompatActivity {
         if (validarDatos()) {
             // OK, se pasa a la siguiente acción
             guardarDatos();
-
+            //mostrarMensaje("Guardar"+usuario.getMenu()+usuario.getPeaje()+usuario.getTraslado());
             new Insertar(this, usuario).execute();
             sendEmail(usuario.getMail());
             Toast.makeText(this, "Se ha realizado el registro, espere confirmación", Toast.LENGTH_LONG).show();
@@ -323,7 +362,7 @@ public class Formulario extends AppCompatActivity {
 
     }
 
-    public void manejoTransporte(@IdRes int id) {
+    /*public void manejoTransporte(@IdRes int id) {
         switch (id) {
             case R.id.radio_trasladoNo:
                 habilitarTraslado(false);
@@ -337,7 +376,7 @@ public class Formulario extends AppCompatActivity {
                 tilGasto.setHint("Gasto promedio en combustible y peajes");
                 break;
         }
-    }
+    }*/
 
 
     //region Métodos de valiudación del formulario
@@ -465,26 +504,20 @@ public class Formulario extends AppCompatActivity {
         usuario.setTelefono(campoTelefono.getText().toString());
 
         usuario.setListaLicencias(licencias);
-        /*if(licencias.size()==0){
-            usuario.setPublica(campoPublica.isChecked());
 
-        }*/
-        usuario.setViatico(campoViatico.isChecked());
-        switch (grupoVehiculo.getCheckedRadioButtonId()){
-            case R.id.radio_trasladoNo:
-                usuario.setTransporte("No");
-                break;
-            case R.id.radio_auto:
-                usuario.setTransporte("Auto");
-                usuario.setGasto(tilGasto.getEditText().getText().toString());
-                break;
-            case R.id.radio_colectivo:
-                usuario.setTransporte("Colectivo");
-                usuario.setGasto(tilGasto.getEditText().getText().toString());
-                break;
+
+        usuario.setGasto(tilGasto.getEditText().getText().toString());
+        usuario.setTraslado(campoTrasladoSi.isChecked());
+        if(campoColectivo.isChecked()){
+            usuario.setTransporte("Colectivo");
+        } else {
+            usuario.setTransporte("Auto");
+            usuario.setPeaje(campoPeaje.getText().toString());
         }
+        usuario.setViatico(campoViatico.isChecked());
 
 
+        usuario.setMenu(this.getMenu(grupoMenu.getCheckedRadioButtonId()));
 
 
     }
@@ -514,6 +547,29 @@ public class Formulario extends AppCompatActivity {
 
 
     //region Métodos auxiliares
+
+    private String getMenu(@IdRes int id){
+
+        switch (id){
+            case R.id.radio_menuVegetariano:
+                return "Vegetariano";
+
+            case R.id.radio_menuCeliaco:
+                return "Celiado";
+
+            case R.id.radio_menuHipertenso:
+                return "Hipertenso";
+            default:
+                return "Ninguno";
+
+        }
+
+
+
+    }
+
+
+
     private void mostrarMensaje(String mensaje) {
         Toast.makeText(this, "Está todo ok con "+mensaje, Toast.LENGTH_LONG).show();
     }
@@ -580,8 +636,20 @@ public class Formulario extends AppCompatActivity {
 
 
         tilGasto.setEnabled(parametro);
+        tilPeaje.setEnabled(parametro);
+        for (int i = 0; i < grupoVehiculo.getChildCount(); i++) {
+            grupoVehiculo.getChildAt(i).setEnabled(parametro);
 
-        tilGasto.setHint("");
+        }
+        mostralLinearLayout(grupoVehiculo,parametro);
+
+        mostralLinearLayout(tilGasto,parametro);
+        if(!campoColectivo.isChecked()){
+            mostralLinearLayout(tilPeaje,parametro);
+        }
+        if(parametro){
+            campoColectivo.requestFocus();
+        }
 
     }
 
@@ -593,6 +661,14 @@ public class Formulario extends AppCompatActivity {
         for (int i = 0; i < grupoInstitucion.getChildCount(); i++) {
             grupoInstitucion.getChildAt(i).setEnabled(parametro);
 
+        }
+
+        mostralLinearLayout(tilCargaHoraria,parametro);
+        mostralLinearLayout(tilID,parametro);
+        mostralLinearLayout(grupoInstitucion,parametro);
+        mostralLinearLayout(lBotonesLicencia, parametro);
+        if(parametro){
+            tilID.requestFocus();
         }
 
         /*
@@ -724,6 +800,7 @@ public class Formulario extends AppCompatActivity {
 
 
     //region Basura (?
+
     protected void sendEmail(String mail) {
         new MailJob(this, "prog111mil@hotmail.com", "curso111mil").execute(
                 new MailJob.Mail("prog111mil@hotmail.com", mail, "Inscripción ", "La Inscripción se ha realizado exitosamente. " +
@@ -734,4 +811,59 @@ public class Formulario extends AppCompatActivity {
 
     //endregion
 
+    //region Animaciones
+    private void mostralLinearLayout(LinearLayout l, boolean visible){
+        if(visible && (l.getVisibility() == View.GONE)){
+                animar(true);
+                l.setVisibility(View.VISIBLE);
+        } else if (l.getVisibility() == View.VISIBLE){
+            animar(false);
+            l.setVisibility(View.GONE);
+        }
+    }
+
+
+    public void mostrarTIL(TextInputLayout l){
+
+        if (l.getVisibility() == View.GONE)
+        {
+            animar(true);
+            l.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+
+    public void ocultarTIL(TextInputLayout textInputLayout) {
+        if (textInputLayout.getVisibility() == View.VISIBLE) {
+            animar(false);
+            textInputLayout.setVisibility(View.GONE);
+
+        }
+    }
+
+
+
+    private void animar(boolean mostrar)
+    {
+        AnimationSet set = new AnimationSet(true);
+
+        Animation animation = null;
+
+        if (mostrar)
+        {
+
+            //desde la esquina inferior derecha a la superior izquierda
+
+            animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+
+        } else
+
+        {    //desde la esquina superior izquierda a la esquina inferior derecha
+
+            animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 1.0f, Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 1.0f);
+
+        }
+    }
+    //endregion
 }

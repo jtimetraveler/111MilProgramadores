@@ -87,6 +87,11 @@ public class Insertar extends AsyncTask<String, String, String> {
         nameValuePairs.add(new BasicNameValuePair("mail", usuario.getMail()));
         nameValuePairs.add(new BasicNameValuePair("telefono", usuario.getTelefono()));
 
+        nameValuePairs.add(new BasicNameValuePair("peaje", usuario.getPeaje()));
+
+        nameValuePairs.add(new BasicNameValuePair("menu", usuario.getMenu()));
+
+        nameValuePairs.add(new BasicNameValuePair("traslado", usuario.getTraslado()));
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

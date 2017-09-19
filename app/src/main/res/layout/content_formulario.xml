@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="8dp"
+        >
 
         <LinearLayout
             android:id="@+id/layout_formulario"
@@ -125,6 +126,16 @@
                 android:layout_weight="1">
 
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_weight="1" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_weight="1" />
+
                 <EditText
                     android:id="@+id/campo_telefono"
                     android:layout_width="match_parent"
@@ -134,11 +145,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_weight="1" />
 
             <RadioGroup
                 android:id="@+id/opciones_licencia"
@@ -176,6 +182,7 @@
 
 
 
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_ID"
                 android:layout_width="match_parent"
@@ -193,11 +200,6 @@
                     android:inputType="number" />
 
             </android.support.design.widget.TextInputLayout>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_weight="1" />
 
 
             <RadioGroup
@@ -227,8 +229,9 @@
 
                 <RadioButton
                     android:id="@+id/radio_privada"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:checked="false"
                     android:text="Privada" />
 
@@ -258,7 +261,7 @@
 
 
             <LinearLayout
-
+                android:id="@+id/layout_botones_licencia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
@@ -292,51 +295,15 @@
                 android:orientation="vertical"></LinearLayout>
 
 
+
+
+
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_weight="1" />
-
             <RadioGroup
-                android:id="@+id/opciones_viatico"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/text_viatico"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginRight="30dp"
-                    android:text="Viatico (más de 50km): "
-                    android:textSize="18sp" />
-
-                <RadioButton
-                    android:id="@+id/radio_viaticoSI"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:checked="false"
-                    android:text="Si" />
-
-                <RadioButton
-                    android:id="@+id/radio_viaticoNO"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="No" />
-
-            </RadioGroup>
-
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:layout_weight="1" />
-            <RadioGroup
-                android:id="@+id/opciones_transporte"
+                android:id="@+id/opciones_traslado"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
@@ -344,7 +311,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/text_transporte"
+                    android:id="@+id/text_traslado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="30dp"
@@ -352,11 +319,49 @@
                     android:textSize="18sp" />
 
                 <RadioButton
+                    android:id="@+id/radio_trasladoSi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:checked="false"
+                    android:text="Si" />
+
+                <RadioButton
                     android:id="@+id/radio_trasladoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="No" />
+
+
+
+
+            </RadioGroup>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
+
+
+            <RadioGroup
+                android:id="@+id/opciones_transporte"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_transporte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:text="Transporte: "
+                    android:textSize="18sp" />
+
+
 
                 <RadioButton
                     android:id="@+id/radio_colectivo"
@@ -391,6 +396,112 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_peaje"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/campo_peaje"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Gasto en peajes"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_weight="1" />
+
+            <RadioGroup
+                android:id="@+id/opciones_viatico"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_viatico"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+
+                    android:text="Viatico (más de 50km): "
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_viaticoSI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:checked="false"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:id="@+id/radio_viaticoNO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="No" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/opciones_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:gravity="left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+
+                    android:text="Dieta alimenticia especial: "
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/radio_menuNinguna"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:checked="true"
+                    android:text="Ninguna" />
+
+                <RadioButton
+                    android:id="@+id/radio_menuVegetariano"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:checked="false"
+                    android:text="Vegetariano" />
+
+                <RadioButton
+                    android:id="@+id/radio_menuCeliaco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:checked="false"
+                    android:text="Celiaco" />
+
+                <RadioButton
+                    android:id="@+id/radio_menuHipertenso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:checked="false"
+                    android:text="Hipertenso" />
+
+            </RadioGroup>
+
 
             <Button
                 android:id="@+id/button_finalizar"
@@ -400,6 +511,8 @@
                 android:layout_weight="1"
                 android:layout_gravity="right"
                 android:text="Finalizar" />
+
+
 
 
 

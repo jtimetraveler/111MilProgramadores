@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="company.juancho.a111milprogramadores">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,10 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Grilla"
+        <activity
+            android:name=".Grilla"
             android:label="@string/title_activity_grilla"
-            android:parentActivityName=".Main"
-            >
+            android:parentActivityName=".Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="company.juancho.a111milprogramadores.Main" />

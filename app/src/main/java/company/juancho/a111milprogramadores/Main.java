@@ -59,22 +59,27 @@ public class Main extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_formulario) {
-            this.lanzarFormulario();
-        } else if (id == R.id.nav_grilla) {
-            this.lanzarGrilla();
+        switch (item.getItemId()){
+            case R.id.nav_formulario:
+                this.lanzarFormulario();
+                break;
+            case R.id.nav_grilla:
+                this.lanzarGrilla();
+                break;
+            case R.id.nav_eventos:
+                this.lanzarWebCultura();
 
-        } else if (id == R.id.nav_eventos) {
-            this.lanzarWebCultura();
-
-        } else if (id == R.id.nav_map) {
-            this.lanzarMapa();
-
-        } else if (id == R.id.nav_emr) {
-            this.lanzarWebEMR();
-
+                break;
+            case R.id.nav_map:
+                this.lanzarMapa();
+                break;
+            case R.id.nav_emr:
+                this.lanzarWebEMR();
+                break;
+            case R.id.nav_tur:
+                this.lanzarWebTUR();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,6 +98,13 @@ public class Main extends AppCompatActivity
         Intent intent = new Intent(this, Grilla.class);
         startActivity(intent);
     }
+
+
+   /* private void lanzarPrueba(){
+        Intent intent = new Intent(this, ScrollingActivity.class);
+        startActivity(intent);
+    }*/
+
 
     private void lanzarFormulario(){
         Intent intent = new Intent(this, Formulario.class);
@@ -118,6 +130,11 @@ public class Main extends AppCompatActivity
         startActivity(webIntent);
     }
 
+    private void lanzarWebTUR(){
+        Uri webpage = Uri.parse("http://www.rosario.tur.ar/es/");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
 
 
 

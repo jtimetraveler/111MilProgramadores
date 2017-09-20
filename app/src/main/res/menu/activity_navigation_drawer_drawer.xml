@@ -10,10 +10,6 @@
             android:id="@+id/nav_grilla"
             android:icon="@android:drawable/ic_menu_today"
             android:title="Grilla de Actividades" />
-        <item
-            android:id="@+id/nav_eventos"
-            android:icon="@android:drawable/btn_star_big_on"
-            android:title="Eventos" />
 
         <item
             android:id="@+id/nav_map"
@@ -21,10 +17,21 @@
             android:title="Dónde estamos" />
 
         <item
+            android:id="@+id/nav_eventos"
+            android:icon="@android:drawable/btn_star_big_on"
+            android:title="Eventos" />
+
+
+
+        <item
             android:id="@+id/nav_emr"
             android:icon="@android:drawable/ic_menu_mapmode"
             android:title="Movete en Rosario" />
 
+        <item
+            android:id="@+id/nav_tur"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Turismo en Rosario" />
     </group>
 
 

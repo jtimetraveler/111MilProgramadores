@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="company.juancho.a111milprogramadores.Rosario"
+    tools:showIn="@layout/activity_rosario">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <Button
+            android:id="@+id/button_rosario_turismo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Turismo"
+
+            android:drawableLeft="@drawable/ic_logo_rosario"/>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

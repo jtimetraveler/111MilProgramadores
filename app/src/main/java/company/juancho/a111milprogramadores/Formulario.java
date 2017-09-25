@@ -1,5 +1,6 @@
 package company.juancho.a111milprogramadores;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -28,6 +29,7 @@ import java.util.regex.Pattern;
 
 import company.juancho.a111milprogramadores.tools.Insertar;
 import company.juancho.a111milprogramadores.tools.MailJob;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Formulario extends AppCompatActivity {
 
@@ -341,6 +343,11 @@ public class Formulario extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 

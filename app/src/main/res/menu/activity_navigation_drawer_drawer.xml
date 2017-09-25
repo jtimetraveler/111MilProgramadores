@@ -4,34 +4,43 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_formulario"
-            android:icon="@android:drawable/ic_input_add"
+            android:icon="@drawable/ic_menu_formulario_24dp"
             android:title="Inscripción" />
         <item
             android:id="@+id/nav_grilla"
-            android:icon="@android:drawable/ic_menu_today"
+            android:icon="@drawable/ic_library_books_black_24dp"
             android:title="Grilla de Actividades" />
 
         <item
+            android:id="@+id/nav_plano"
+            android:icon="@drawable/ic_menu_metro_24dp"
+            android:title="Metropolitano" />
+
+        <item
             android:id="@+id/nav_map"
-            android:icon="@android:drawable/ic_menu_mylocation"
+            android:icon="@drawable/ic_place_black_24dp"
             android:title="Dónde estamos" />
 
         <item
             android:id="@+id/nav_eventos"
-            android:icon="@android:drawable/btn_star_big_on"
-            android:title="Eventos" />
-
+            android:icon="@drawable/ic_menu_cultura_24dp"
+            android:title="Rosario=Cultura" />
 
 
         <item
             android:id="@+id/nav_emr"
-            android:icon="@android:drawable/ic_menu_mapmode"
-            android:title="Movete en Rosario" />
+            android:icon="@drawable/ic_menu_transporte_24dp"
+            android:title="Rosario=Transporte" />
 
         <item
             android:id="@+id/nav_tur"
-            android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Turismo en Rosario" />
+            android:icon="@drawable/ic_menu_turismo"
+            android:title="Rosario=Turismo" />
+
+
+
+
+
     </group>
 
 

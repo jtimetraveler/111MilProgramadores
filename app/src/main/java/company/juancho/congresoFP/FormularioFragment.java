@@ -1,4 +1,4 @@
-package company.juancho.a111milprogramadores;
+package company.juancho.congresoFP;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
-import company.juancho.a111milprogramadores.R;
 
 
 /**

@@ -1,4 +1,4 @@
-package company.juancho.a111milprogramadores;
+package company.juancho.congresoFP;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,8 +27,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import company.juancho.a111milprogramadores.tools.Insertar;
-import company.juancho.a111milprogramadores.tools.MailJob;
+import company.juancho.congresoFP.tools.Insertar;
+import company.juancho.congresoFP.tools.MailJob;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Formulario extends AppCompatActivity {
@@ -742,7 +742,7 @@ public class Formulario extends AppCompatActivity {
         // added Button
         final ImageButton button = new ImageButton(this);
         button.setImageResource(R.drawable.ic_menu_edit);
-        //button.setLayoutParams(params);
+        button.setLayoutParams(params);
         button.setId(m);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

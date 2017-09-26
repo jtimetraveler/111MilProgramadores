@@ -1,4 +1,4 @@
-package company.juancho.a111milprogramadores;
+package company.juancho.congresoFP;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,8 +9,8 @@ import android.view.View;
 
 import java.text.DecimalFormat;
 
-import company.juancho.a111milprogramadores.tools.Save;
-import company.juancho.a111milprogramadores.tools.TouchImageView;
+import company.juancho.congresoFP.tools.Save;
+import company.juancho.congresoFP.tools.TouchImageView;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Plano extends AppCompatActivity {

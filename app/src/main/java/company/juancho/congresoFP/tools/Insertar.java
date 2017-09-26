@@ -1,4 +1,4 @@
-package company.juancho.a111milprogramadores.tools;
+package company.juancho.congresoFP.tools;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import company.juancho.a111milprogramadores.Usuario;
+import company.juancho.congresoFP.Usuario;
 
 /**
  * Created by Desktop on 31/08/2017.

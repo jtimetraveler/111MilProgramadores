@@ -1,4 +1,4 @@
-package company.juancho.a111milprogramadores;
+package company.juancho.congresoFP;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_formulario"
-    tools:context="company.juancho.a111milprogramadores.FormularioFragment">
+    tools:context="company.juancho.congresoFP.FormularioFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

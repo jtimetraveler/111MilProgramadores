@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="company.juancho.a111milprogramadores.Plano"
+    tools:context="company.juancho.congresoFP.Plano"
     tools:showIn="@layout/activity_plano"
     tools:ignore="ExtraText">
 
-    <company.juancho.a111milprogramadores.tools.TouchImageView
+    <company.juancho.congresoFP.tools.TouchImageView
         android:id="@+id/idDeVuestraImagen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:src="@drawable/img_plano"></company.juancho.a111milprogramadores.tools.TouchImageView>>
+        android:src="@drawable/img_plano"></company.juancho.congresoFP.tools.TouchImageView>>
 
 </android.support.constraint.ConstraintLayout>

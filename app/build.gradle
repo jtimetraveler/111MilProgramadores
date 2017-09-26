@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
-        applicationId "company.juancho.a111milprogramadores"
+        applicationId 'company.juancho.congresoFP'
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 6
@@ -21,6 +21,8 @@ android {
         }
     }
     useLibrary 'org.apache.http.legacy'
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -29,8 +31,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //esto lo agrego yo
-
-
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'

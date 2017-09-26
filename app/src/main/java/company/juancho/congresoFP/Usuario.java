@@ -1,4 +1,4 @@
-package company.juancho.a111milprogramadores;
+package company.juancho.congresoFP;
 
 import java.util.ArrayList;
 

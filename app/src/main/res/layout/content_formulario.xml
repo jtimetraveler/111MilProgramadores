@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="company.juancho.a111milprogramadores.Formulario"
+    tools:context="company.juancho.congresoFP.Formulario"
     tools:showIn="@layout/activity_formulario">
 
     <ScrollView
@@ -273,7 +273,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Agregar Licencia"
+                    android:text="Agregar ID"
                     android:enabled="false" />
 
                 <Button

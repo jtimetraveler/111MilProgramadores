@@ -181,8 +181,10 @@ public class Formulario extends AppCompatActivity {
         buttonAgregarLicencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(validarCamposID()){
+                    mostrarLicencia(guardarLicencia());
+                }
 
-                mostrarLicencia(guardarLicencia());
             }
         });
 
@@ -369,6 +371,8 @@ public class Formulario extends AppCompatActivity {
 
     }
 
+
+
     /*public void manejoTransporte(@IdRes int id) {
         switch (id) {
             case R.id.radio_trasladoNo:
@@ -446,6 +450,14 @@ public class Formulario extends AppCompatActivity {
         }
     }
 
+
+    private boolean validarCamposID(){
+        if(this.estaCompleto(tilID)&&this.estaCompleto(tilCargaHoraria) && esIDValido(tilID.getEditText.getText.toString())){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private boolean validarDatos() {
         String nombre = tilNombre.getEditText().getText().toString();

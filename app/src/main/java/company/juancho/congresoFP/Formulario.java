@@ -389,7 +389,7 @@ public class Formulario extends AppCompatActivity {
     //region Métodos de valiudación del formulario
 
     private boolean esNombreValido(String nombre) {
-        Pattern patron = Pattern.compile("^[a-zA-Z ]+$");
+        Pattern patron = Pattern.compile("^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]+$");
         if (!patron.matcher(nombre).matches() || nombre.length() > 30 || nombre.isEmpty()) {
             tilNombre.setError("Nombre inválido");
             tilNombre.requestFocus();
@@ -412,6 +412,7 @@ public class Formulario extends AppCompatActivity {
         }
 
     }
+
 
     private boolean esCorreoValido(String correo) {
         if (!Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {

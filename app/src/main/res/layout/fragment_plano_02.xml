@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="company.juancho.congresoFP.fragment.PlanoD101Fragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <company.juancho.congresoFP.tools.TouchImageView
+        android:id="@+id/img_plano_02"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="@dimen/imagen_margin"
+        android:src="@drawable/img_plano_02">
+
+    </company.juancho.congresoFP.tools.TouchImageView>
+</FrameLayout>

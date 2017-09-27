@@ -4,9 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
-        android:name="company.juancho.congresoFP.Principal"
+        android:name=".Principal"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_santafe"
         android:label="@string/app_name"
@@ -14,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="company.juancho.congresoFP.Main"
+            android:name=".Main"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,35 +25,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="company.juancho.congresoFP.Grilla"
+            android:name=".Grilla"
             android:label="@string/title_activity_grilla"
-            android:parentActivityName="company.juancho.congresoFP.Main">
+            android:parentActivityName=".Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="company.juancho.congresoFP.Main" />
         </activity>
         <activity
-            android:name="company.juancho.congresoFP.Formulario"
+            android:name=".Formulario"
             android:label="@string/title_activity_formulario"
-            android:parentActivityName="company.juancho.congresoFP.Main"
+            android:parentActivityName=".Main"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="company.juancho.congresoFP.Main" />
         </activity>
         <activity
-            android:name="company.juancho.congresoFP.Plano"
-            android:label="@string/title_activity_plano"
-            android:parentActivityName="company.juancho.congresoFP.Main"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="company.juancho.congresoFP.Main" />
-        </activity>
-        <activity
-            android:name="company.juancho.congresoFP.Rosario"
+            android:name=".Rosario"
             android:label="@string/title_activity_rosario"
-            android:parentActivityName="company.juancho.congresoFP.Main"
+            android:parentActivityName=".Main"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="company.juancho.congresoFP.Main" />
+        </activity>
+        <activity
+            android:name=".PlanoActivity"
+            android:label="@string/title_activity_plano"
+            android:parentActivityName=".Main"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

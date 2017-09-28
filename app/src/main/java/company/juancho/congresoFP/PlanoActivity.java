@@ -1,5 +1,6 @@
 package company.juancho.congresoFP;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.design.widget.TabLayout;
@@ -48,6 +49,8 @@ public class PlanoActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private Context context;
+
     private TouchImageView imagend101,imagend102,imagend201;
     private DecimalFormat df;
 
@@ -55,7 +58,7 @@ public class PlanoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plano);
-
+        context = getBaseContext();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,21 +84,27 @@ public class PlanoActivity extends AppCompatActivity {
 
 
 
-        imagend101.setOnLongClickListener(new View.OnLongClickListener() {
+        /*imagend101.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View arg0) {
-                descargarImagen(imagend101);
-                return false;
-            }
-        });
 
+                imagend101.buildDrawingCache();
+                Bitmap bmap = imagend101.getDrawingCache();
+
+                //guardar imagen
+                Save savefile = new Save();
+                savefile.SaveImage(PlanoActivity.super.getParent(), bmap);
+                return true;
+            }
+        });*/
+/*
         imagend201.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View arg0) {
                 descargarImagen(imagend201);
-                return false;
+                return true;
             }
         });
 
@@ -104,9 +113,9 @@ public class PlanoActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View arg0) {
                 descargarImagen(imagend102);
-                return false;
+                return true;
             }
-        });
+        });*/
 
 
     }
@@ -222,7 +231,7 @@ public class PlanoActivity extends AppCompatActivity {
 
 
 
-    private void descargarImagen(ImageView imagen){
+    private void descargarImagen(TouchImageView imagen){
         //convertir imagen
         imagen.buildDrawingCache();
         Bitmap bmap = imagen.getDrawingCache();
@@ -231,4 +240,6 @@ public class PlanoActivity extends AppCompatActivity {
         Save savefile = new Save();
         savefile.SaveImage(this, bmap);
     }
+
+
 }

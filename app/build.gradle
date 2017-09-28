@@ -7,8 +7,8 @@ android {
         applicationId 'company.juancho.congresoFP'
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 7
-        versionName "1.7"
+        versionCode 3
+        versionName "2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         vectorDrawables.useSupportLibrary = true

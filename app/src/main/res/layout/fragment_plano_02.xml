@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="@dimen/imagen_margin"
-        android:src="@drawable/img_plano_02">
+        android:src="@drawable/img_plano_02"
+        >
 
     </company.juancho.congresoFP.tools.TouchImageView>
 </FrameLayout>

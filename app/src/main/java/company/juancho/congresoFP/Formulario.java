@@ -452,7 +452,7 @@ public class Formulario extends AppCompatActivity {
 
 
     private boolean validarCamposID(){
-        if(this.estaCompleto(tilID)&&this.estaCompleto(tilCargaHoraria) && esIDValido(tilID.getEditText.getText.toString())){
+        if(this.estaCompleto(tilID)&&this.estaCompleto(tilCargaHoraria) && esIDValido(tilID.getEditText().getText().toString())){
             return true;
         } else {
             return false;

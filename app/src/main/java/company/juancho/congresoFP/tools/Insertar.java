@@ -48,7 +48,7 @@ public class Insertar extends AsyncTask<String, String, String> {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
-                    Toast.makeText(context, "Persona insertada con éxito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Incripción registrada con éxito", Toast.LENGTH_LONG).show();
 
                 }
             });
@@ -57,7 +57,7 @@ public class Insertar extends AsyncTask<String, String, String> {
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
-                    Toast.makeText(context, "Persona no insertada con éxito", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Incripción no registrada. Intente nuevamente más tarde", Toast.LENGTH_LONG).show();
                 }
             });
         return null;
@@ -92,6 +92,8 @@ public class Insertar extends AsyncTask<String, String, String> {
         nameValuePairs.add(new BasicNameValuePair("menu", usuario.getMenu()));
 
         nameValuePairs.add(new BasicNameValuePair("traslado", usuario.getTraslado()));
+
+        nameValuePairs.add(new BasicNameValuePair("familia_profesional", usuario.getFamiliaProfesional()));
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

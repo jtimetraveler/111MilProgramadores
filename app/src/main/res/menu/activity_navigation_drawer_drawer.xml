@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/side_nav_bar">
 
     <group android:checkableBehavior="single">
         <item
@@ -9,7 +10,7 @@
         <item
             android:id="@+id/nav_grilla"
             android:icon="@drawable/ic_library_books_black_24dp"
-            android:title="Grilla de Actividades" />
+            android:title="Programa de Actividades" />
 
         <item
             android:id="@+id/nav_plano"
@@ -42,6 +43,7 @@
 
 
     </group>
+
 
 
 

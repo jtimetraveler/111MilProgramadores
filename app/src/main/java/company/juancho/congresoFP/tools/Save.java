@@ -35,7 +35,7 @@ public class Save {
             dir.mkdirs();
         }
 
-        File file = new File(dir, NameOfFile + CurrentDateAndTime + ".jpg");
+        File file = new File(dir, NameOfFile + CurrentDateAndTime + ".png");
 
         try {
             FileOutputStream fOut = new FileOutputStream(file);

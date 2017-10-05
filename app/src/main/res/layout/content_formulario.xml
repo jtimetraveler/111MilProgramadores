@@ -70,22 +70,46 @@
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/til_Institucion"
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/text_institucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+
+                android:text="Institución: "
+                android:textSize="18sp" />
+
+
+
+            <Spinner
+                android:id="@+id/spinner_institucion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1" />
 
-                <EditText
-                    android:id="@+id/campo_Institucion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Institución a la que representa"
-                    android:inputType="text" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/text_num_institucion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="Número de Institución"
+                android:textSize="18sp" />
 
-            </android.support.design.widget.TextInputLayout>
 
 
+            <Spinner
+                android:id="@+id/spinner_num_institucion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til_localidad"
@@ -126,15 +150,7 @@
                 android:layout_weight="1">
 
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_weight="1" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="15dp"
-                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/campo_telefono"
@@ -144,6 +160,51 @@
                     android:inputType="phone" />
 
             </android.support.design.widget.TextInputLayout>
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/text_prof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+
+                android:text="Familia Profesional: "
+                android:textSize="18sp" />
+
+
+
+            <Spinner
+                android:id="@+id/spinner_profesional"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/text_cursos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cursos:"
+                android:textSize="12sp" />
+            <TextView
+                android:id="@+id/text_cursos_prof"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_weight="1" />
+
 
 
             <RadioGroup
@@ -451,57 +512,22 @@
 
             </RadioGroup>
 
-            <RadioGroup
-                android:id="@+id/opciones_menu"
+            <TextView
+                android:id="@+id/text_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+
+                android:text="Dieta alimenticia especial: "
+                android:textSize="18sp" />
+
+
+
+            <Spinner
+                android:id="@+id/spinnerMenu"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                android:gravity="left"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/text_menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-
-                    android:text="Dieta alimenticia especial: "
-                    android:textSize="18sp" />
-
-                <RadioButton
-                    android:id="@+id/radio_menuNinguna"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:checked="true"
-                    android:text="Ninguna" />
-
-                <RadioButton
-                    android:id="@+id/radio_menuVegetariano"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:checked="false"
-                    android:text="Vegetariano" />
-
-                <RadioButton
-                    android:id="@+id/radio_menuCeliaco"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:checked="false"
-                    android:text="Celiaco" />
-
-                <RadioButton
-                    android:id="@+id/radio_menuHipertenso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:checked="false"
-                    android:text="Hipertenso" />
-
-            </RadioGroup>
-
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/button_finalizar"

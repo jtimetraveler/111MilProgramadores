@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Usuario {
 
     //region Parámetros
-    private String nombre, apellido, institucion, localidad;
+    private String nombre, apellido, institucion="", localidad;
 
     private int dni ;
     private boolean licencia, publica, viatico=false, traslado;
@@ -20,7 +20,7 @@ public class Usuario {
 
     private String mail, telefono;
 
-    private String menu="";
+    private String menu="", familiaProfesional="";
 
     private ArrayList<Licencia> listaLicencias = new ArrayList<Licencia>();
     //endregion
@@ -32,9 +32,9 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(String nombre, String institucion, String localidad, int dni) {
+    public Usuario(String nombre, String localidad, int dni) {
         this.nombre = nombre;
-        this.institucion = institucion;
+
         this.localidad = localidad;
         this.dni = dni;
 
@@ -165,6 +165,14 @@ public class Usuario {
     }
 
 
+    public String getFamiliaProfesional() {
+        return familiaProfesional;
+    }
+
+    public void setFamiliaProfesional(String familiaProfesional) {
+        this.familiaProfesional = familiaProfesional;
+    }
+
     public  String getTraslado(){
         if(traslado){
             return "Si";
@@ -172,6 +180,9 @@ public class Usuario {
             return "No";
         }
     }
+
+
+
 
     public String getGasto() {
         return gasto;

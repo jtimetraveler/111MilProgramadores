@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -81,7 +82,8 @@ public class Main extends AppCompatActivity
                 this.lanzarFormulario();
                 break;
             case R.id.nav_grilla:
-                this.lanzarGrilla();
+                this.mostrarMensaje("Aquí podrá descargar un pdf con las actividades");
+                this.lanzarWebPDFActividades();
                 break;
             case R.id.nav_eventos:
                 this.lanzarWebCultura();
@@ -108,6 +110,11 @@ public class Main extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    private void mostrarMensaje(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
 
 
@@ -163,6 +170,14 @@ public class Main extends AppCompatActivity
         Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
         startActivity(webIntent);
     }
+
+    private void lanzarWebPDFActividades(){
+        Uri webpage = Uri.parse("http://institutosiris.com/ws/UbicacionesProgramadel2doCongresoProvincialdeFP.pdf");
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+        startActivity(webIntent);
+    }
+
+
 
 
 

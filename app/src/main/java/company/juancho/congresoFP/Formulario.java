@@ -15,12 +15,15 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,12 +37,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class Formulario extends AppCompatActivity {
 
     //region Parametros
-    private int n = 0, m = 0;
+    private int n = 0, m = 0, positionSpinnerInstitucion =0;
     private EditText campoNombre;
     private EditText campoApellido, campoMail, campoTelefono;
 
     private EditText campoDNI;
-    private EditText campoInstitucion;
+    //private EditText campoInstitucion;
     private EditText campoLocalidad, campoCargaHoraria, campoID;
     private EditText campoPeaje;
     //private EditText campoID, campoViatico, campoTraslado;
@@ -49,7 +52,7 @@ public class Formulario extends AppCompatActivity {
 
     private TextInputLayout tilNombre, tilApellido, tilMail, tilTelefono;
     private TextInputLayout tilDNI;
-    private TextInputLayout tilIntitucion;
+    //private TextInputLayout tilIntitucion;
     private TextInputLayout tilLocalidad, tilID, tilCargaHoraria, tilGasto, tilPeaje;
 
 
@@ -71,6 +74,13 @@ public class Formulario extends AppCompatActivity {
 
     private LinearLayout lBotonesLicencia;
 
+
+
+    private Spinner spinnerMenu, spinnerProf, spinnerInstucion, spinnerNumInst;
+
+    private ArrayAdapter<CharSequence> adapterNumInstitucion;
+
+    private TextView textoNumIns, textFamiliaProf, textCursos, textCursosTitulo;
     //endregion
 
 
@@ -79,9 +89,14 @@ public class Formulario extends AppCompatActivity {
         buttonFinalizar = (Button) findViewById(R.id.button_finalizar);
         buttonModificar = (Button) findViewById(R.id.button_modificar);
 
+        textoNumIns = (TextView) findViewById(R.id.text_num_institucion);
+        textFamiliaProf = (TextView) findViewById(R.id.text_prof);
+        textCursos = (TextView) findViewById(R.id.text_cursos_prof);
+        textCursosTitulo = (TextView) findViewById(R.id.text_cursos);
+
         campoNombre = (EditText) findViewById(R.id.campo_nombre);
         campoDNI = (EditText) findViewById(R.id.campo_DNI);
-        campoInstitucion = (EditText) findViewById(R.id.campo_Institucion);
+        //campoInstitucion = (EditText) findViewById(R.id.campo_Institucion);
         campoLocalidad = (EditText) findViewById(R.id.campo_localidad);
         campoMail = (EditText) findViewById(R.id.campo_mail);
         campoApellido = (EditText) findViewById(R.id.campo_apellido);
@@ -92,7 +107,7 @@ public class Formulario extends AppCompatActivity {
 
         tilNombre = (TextInputLayout) findViewById(R.id.til_nombre);
         tilDNI = (TextInputLayout) findViewById(R.id.til_DNI);
-        tilIntitucion = (TextInputLayout) findViewById(R.id.til_Institucion);
+        //tilIntitucion = (TextInputLayout) findViewById(R.id.til_Institucion);
         tilLocalidad = (TextInputLayout) findViewById(R.id.til_localidad);
         tilApellido = (TextInputLayout) findViewById(R.id.til_apellido);
         tilMail = (TextInputLayout) findViewById(R.id.til_mail);
@@ -109,7 +124,7 @@ public class Formulario extends AppCompatActivity {
         grupoLicencia = (RadioGroup) findViewById(R.id.opciones_licencia);
         grupoViatico = (RadioGroup) findViewById(R.id.opciones_viatico);
         grupoInstitucion = (RadioGroup) findViewById(R.id.opciones_institucion);
-        grupoMenu = (RadioGroup) findViewById(R.id.opciones_menu);
+        //grupoMenu = (RadioGroup) findViewById(R.id.opciones_menu);
 
 
 
@@ -143,6 +158,47 @@ public class Formulario extends AppCompatActivity {
         grupoLicencia.check(R.id.radio_viaticoNO);
 
         campoLicenciaNo.setChecked(true);
+
+        spinnerMenu = (Spinner) findViewById(R.id.spinnerMenu);
+        spinnerProf = (Spinner) findViewById(R.id.spinner_profesional);
+
+        spinnerInstucion = (Spinner) findViewById(R.id.spinner_institucion);
+        spinnerNumInst = (Spinner) findViewById(R.id.spinner_num_institucion);
+
+        //ArrayAdapter para conectar el Spinner a nuestros recursos strings.xml
+        ArrayAdapter<CharSequence> adapter, adapterProf, adapterInst;
+        //Obtener instancia del GameSpinner
+
+
+        //Asignas el origen de datos desde los recursos
+        adapter = ArrayAdapter.createFromResource(this, R.array.Dieta,
+                android.R.layout.simple_spinner_item);
+        adapterProf = ArrayAdapter.createFromResource(this, R.array.FamiliaProfesional,
+                android.R.layout.simple_spinner_item);
+
+        adapterInst = ArrayAdapter.createFromResource(this, R.array.Institucion,
+                android.R.layout.simple_spinner_item);
+
+        /*adapterNumInstitucion = ArrayAdapter.createFromResource(this, R.array.CEA,
+                android.R.layout.simple_spinner_item);*/
+
+        //Asignas el layout a inflar para cada elemento
+        //al momento de desplegar la lista
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterProf.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterInst.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //adapterNumInstitucion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Seteas el adaptador
+        spinnerMenu.setAdapter(adapter);
+
+        spinnerProf.setAdapter(adapterProf);
+
+        spinnerInstucion.setAdapter(adapterInst);
+        //spinnerNumInst.setAdapter(adapterNumInstitucion);
+
+
+
+
     }
 
 
@@ -169,12 +225,13 @@ public class Formulario extends AppCompatActivity {
         buttonModificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                mostrarLicencia(guardarLicencia(n), n);
-                buttonModificar.setVisibility(View.INVISIBLE);
-                buttonAgregarLicencia.setVisibility(View.VISIBLE);
-                habitarBonetes(true);
-                buttonFinalizar.setEnabled(true);
+                if(validarCamposID()) {
+                    mostrarLicencia(guardarLicencia(n), n);
+                    buttonModificar.setVisibility(View.INVISIBLE);
+                    buttonAgregarLicencia.setVisibility(View.VISIBLE);
+                    habitarBonetes(true);
+                    buttonFinalizar.setEnabled(true);
+                }
             }
         });
 
@@ -188,24 +245,39 @@ public class Formulario extends AppCompatActivity {
             }
         });
 
-        /*grupoViatico.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int id) {
-                switch (id) {
-                    case R.id.radio_viaticoSI:
-                        grupoVehiculo.getChildAt(1).setEnabled(false);
-                        grupoVehiculo.check(R.id.radio_colectivo);
-                        habilitarTraslado(true);
-                        break;
-                    case R.id.radio_viaticoNO:
-                        grupoVehiculo.getChildAt(1).setEnabled(true);
-                        grupoVehiculo.check(R.id.radio_trasladoNo);
-                        habilitarTraslado(false);
-                        break;
-                }
-            }
-        });*/
 
+        spinnerInstucion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
+            {
+                cambiarSpinnerNum(pos);
+                if(!(pos== positionSpinnerInstitucion)){
+                    mostrarMensaje("Verifique correctamente que no se encuentra en otra categoría de incripción.");
+                    positionSpinnerInstitucion =pos;
+                }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {    }
+        });
+
+
+        spinnerProf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                comportamientoSpinnerFamiliaProf(i);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         grupoTraslado.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -353,6 +425,131 @@ public class Formulario extends AppCompatActivity {
     }
 
 
+    private void comportamientoSpinnerFamiliaProf(int position){
+        int aux=0;
+
+        switch (position){
+            case 0:
+                aux = R.string.cursos18artistica;
+                break;
+            case 1:
+                 aux = R.string.cursos00administracion;
+                break;
+            case 2:
+                aux = R.string.cursos01agro;
+                break;
+            case 3:
+                aux = R.string.cursos02apicultura;
+                break;
+            case 4:
+                aux = R.string.cursos03Automotriz;
+                break;
+            case 5:
+                aux = R.string.cursos04Construccion;
+                break;
+            case 6:
+                aux = R.string.cursos05cuero;
+                break;
+            case 7:
+                aux = R.string.cursos06electromecanica;
+                break;
+            case 8:
+                aux = R.string.cursos07electronica;
+                break;
+            case 9:
+                aux = R.string.cursos08electrica;
+                break;
+            case 10:
+                aux = R.string.cursos09estetica;
+                break;
+            case 11:
+                aux = R.string.cursos10forestal;
+                break;
+            case 12:
+                aux = R.string.cursos11hoteleria;
+                break;
+            case 13:
+                aux = R.string.cursos12alimenticia;
+                break;
+            case 14:
+                aux = R.string.cursos13informatica;
+                break;
+            case 15:
+                aux = R.string.cursos14mecanica;
+                break;
+            case 16:
+                aux = R.string.cursos15artesanal;
+                break;
+            case 17:
+                aux = R.string.cursos16servicios;
+                break;
+            case 18:
+                aux = R.string.cursos17textil;
+                break;
+        }
+
+
+        textCursos.setText(aux);
+    }
+
+
+    private void cambiarSpinnerNum(int pos){
+        int aux=0;
+
+        switch (pos){
+            case 0:
+                aux = R.array.talleristas;
+                break;
+
+            case 1:
+                aux = R.array.Otros;
+                break;
+            case 2:
+                aux = R.array.CEA;
+                break;
+            case 3:
+                aux = R.array.CECLA;
+                break;
+            case 4:
+                aux = R.array.CFP;
+                break;
+            case 5:
+                aux = R.array.EESO;
+                break;
+            case 6:
+                aux = R.array.EET;
+                break;
+            case 7:
+                aux = R.array.EETP;
+                break;
+            case 8:
+                aux = R.array.EPN;
+                break;
+
+        }
+        if(pos<2){
+            mostralView(spinnerProf, false);
+            mostralView(textFamiliaProf,false);
+            mostralView(textoNumIns,false);
+            mostralView(textCursos,false);
+            mostralView(textCursosTitulo,false);
+        }else {
+            mostralView(spinnerProf, true);
+            mostralView(textFamiliaProf,true);
+            mostralView(textoNumIns,true);
+            mostralView(textCursos,true);
+            mostralView(textCursosTitulo,true);
+        }
+
+
+        adapterNumInstitucion = ArrayAdapter.createFromResource(this, aux,
+                android.R.layout.simple_spinner_item);
+        adapterNumInstitucion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Seteas el adaptador
+        spinnerNumInst.setAdapter(adapterNumInstitucion);
+
+    }
+
     private void pressBotonFinalizar() {
 
 
@@ -361,9 +558,9 @@ public class Formulario extends AppCompatActivity {
         if (validarDatos()) {
             // OK, se pasa a la siguiente acción
             guardarDatos();
-            //mostrarMensaje("Guardar"+usuario.getMenu()+usuario.getPeaje()+usuario.getTraslado());
+            //mostrarMensaje("Guardar. Int: "+usuario.getInstitucion());
             new Insertar(this, usuario).execute();
-            sendEmail(usuario.getMail());
+
             Toast.makeText(this, "Se ha realizado el registro, espere confirmación", Toast.LENGTH_LONG).show();
             lanzarMainActivity();
         }
@@ -442,7 +639,7 @@ public class Formulario extends AppCompatActivity {
     private boolean esTelefonoValido(String tel){
 
         if ( !(tel.length()==10)) {
-            tilTelefono.setError("Número de Teléfono inválido");
+            tilTelefono.setError("Número de Teléfono inválido. Ej: 3415111222");
             tilTelefono.requestFocus();
             return false;
         } else {
@@ -496,7 +693,7 @@ public class Formulario extends AppCompatActivity {
         boolean respuesta = false;
 
 
-        if ( estaCompleto(tilApellido) && estaCompleto(tilNombre) && estaCompleto(tilDNI) && estaCompleto(tilIntitucion)
+        if ( estaCompleto(tilApellido) && estaCompleto(tilNombre) && estaCompleto(tilDNI)
                 && estaCompleto(tilLocalidad) && estaCompleto(tilMail) && estaCompleto(tilTelefono)) {
             if (campoLicenciaSi.isChecked()) {
                 if (estaCompleto(tilID ) && estaCompleto(tilCargaHoraria)) {
@@ -517,7 +714,7 @@ public class Formulario extends AppCompatActivity {
 
 
     private void guardarDatos() {
-        usuario = new Usuario(campoNombre.getText().toString(), campoInstitucion.getText().toString(), campoLocalidad.getText().toString(), Integer.parseInt(campoDNI.getText().toString()));
+        usuario = new Usuario(campoNombre.getText().toString(), campoLocalidad.getText().toString(), Integer.parseInt(campoDNI.getText().toString()));
 
         usuario.setApellido(tilApellido.getEditText().getText().toString());
         usuario.setMail(campoMail.getText().toString());
@@ -537,9 +734,19 @@ public class Formulario extends AppCompatActivity {
         usuario.setViatico(campoViatico.isChecked());
 
 
-        usuario.setMenu(this.getMenu(grupoMenu.getCheckedRadioButtonId()));
+        usuario.setMenu(spinnerMenu.getItemAtPosition(spinnerMenu.getSelectedItemPosition()).toString());
+        if(positionSpinnerInstitucion>1){
+            usuario.setFamiliaProfesional(spinnerProf.getItemAtPosition(spinnerProf.getSelectedItemPosition()).toString());
+        }
 
+        usuario.setInstitucion(this.getInstitucion());
+    }
 
+    private String getInstitucion(){
+        String aux1, aux2;
+                aux1 =spinnerInstucion.getItemAtPosition(spinnerInstucion.getSelectedItemPosition()).toString();
+                aux2 = spinnerNumInst.getItemAtPosition(spinnerNumInst.getSelectedItemPosition()).toString();
+        return aux1+"-"+aux2;
     }
 
     private Licencia guardarLicencia() {
@@ -568,30 +775,12 @@ public class Formulario extends AppCompatActivity {
 
     //region Métodos auxiliares
 
-    private String getMenu(@IdRes int id){
 
-        switch (id){
-            case R.id.radio_menuVegetariano:
-                return "Vegetariano";
-
-            case R.id.radio_menuCeliaco:
-                return "Celiado";
-
-            case R.id.radio_menuHipertenso:
-                return "Hipertenso";
-            default:
-                return "Ninguno";
-
-        }
-
-
-
-    }
 
 
 
     private void mostrarMensaje(String mensaje) {
-        Toast.makeText(this, "Está todo ok con "+mensaje, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show();
     }
 
 
@@ -754,8 +943,8 @@ public class Formulario extends AppCompatActivity {
 
         // added Button
         final ImageButton button = new ImageButton(this);
-        button.setImageResource(R.drawable.ic_menu_edit);
-        button.setLayoutParams(params);
+        button.setImageResource(R.drawable.ic_edit_black_24dp);
+        //button.setLayoutParams(params);
         button.setId(m);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -843,10 +1032,35 @@ public class Formulario extends AppCompatActivity {
     }
 
 
+    private void mostralView(Spinner l, boolean visible){
+        if(visible && (l.getVisibility() == View.GONE)){
+            animar(true);
+            l.setVisibility(View.VISIBLE);
+
+        } else if (l.getVisibility() == View.VISIBLE){
+            animar(false);
+            l.setVisibility(View.GONE);
+
+        }
+    }
+
+    private void mostralView(TextView l, boolean visible){
+        if(visible && (l.getVisibility() == View.GONE)){
+            animar(true);
+            l.setVisibility(View.VISIBLE);
+
+        } else if (l.getVisibility() == View.VISIBLE){
+            animar(false);
+            l.setVisibility(View.GONE);
+
+        }
+    }
+
     public void mostrarTIL(TextInputLayout l){
 
         if (l.getVisibility() == View.GONE)
         {
+
             animar(true);
             l.setVisibility(View.VISIBLE);
         }
@@ -885,5 +1099,54 @@ public class Formulario extends AppCompatActivity {
 
         }
     }
+    //endregion
+
+
+
+    //region basura
+    /*<RadioGroup
+    android:id="@+id/opciones_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:gravity="left"
+    android:orientation="vertical">
+
+
+
+                <RadioButton
+    android:id="@+id/radio_menuNinguna"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:checked="true"
+    android:text="Ninguna" />
+
+                <RadioButton
+    android:id="@+id/radio_menuVegetariano"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:checked="false"
+    android:text="Vegetariano" />
+
+                <RadioButton
+    android:id="@+id/radio_menuCeliaco"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:checked="false"
+    android:text="Celiaco" />
+
+                <RadioButton
+    android:id="@+id/radio_menuHipertenso"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="30dp"
+    android:checked="false"
+    android:text="Hipertenso" />
+
+            </RadioGroup>*/
+
     //endregion
 }
